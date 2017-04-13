@@ -1,0 +1,12 @@
+E:\SoftUni\DB ADVANCED\Teamwork\PokemonDb\PokemonDB.CLient\bin\Debug\PokemonDB.CLient.exe.config
+E:\SoftUni\DB ADVANCED\Teamwork\PokemonDb\PokemonDB.CLient\bin\Debug\PokemonDB.CLient.exe
+E:\SoftUni\DB ADVANCED\Teamwork\PokemonDb\PokemonDB.CLient\bin\Debug\PokemonDB.CLient.pdb
+E:\SoftUni\DB ADVANCED\Teamwork\PokemonDb\PokemonDB.CLient\bin\Debug\PokemonDB.Models.dll
+E:\SoftUni\DB ADVANCED\Teamwork\PokemonDb\PokemonDB.CLient\bin\Debug\EntityFramework.dll
+E:\SoftUni\DB ADVANCED\Teamwork\PokemonDb\PokemonDB.CLient\bin\Debug\PokemonDB.Models.pdb
+E:\SoftUni\DB ADVANCED\Teamwork\PokemonDb\PokemonDB.CLient\bin\Debug\EntityFramework.xml
+E:\SoftUni\DB ADVANCED\Teamwork\PokemonDb\PokemonDB.CLient\obj\Debug\PokemonDB.CLient.csprojResolveAssemblyReference.cache
+E:\SoftUni\DB ADVANCED\Teamwork\PokemonDb\PokemonDB.CLient\obj\Debug\PokemonDB.CLient.exe
+E:\SoftUni\DB ADVANCED\Teamwork\PokemonDb\PokemonDB.CLient\obj\Debug\PokemonDB.CLient.pdb
+E:\SoftUni\DB ADVANCED\Teamwork\PokemonDb\PokemonDB.CLient\bin\Debug\PokemonDB.Data.dll
+E:\SoftUni\DB ADVANCED\Teamwork\PokemonDb\PokemonDB.CLient\bin\Debug\PokemonDB.Data.pdb

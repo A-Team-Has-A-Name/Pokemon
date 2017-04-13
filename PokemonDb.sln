@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokemonDB.Models", "PokemonDB.Models\PokemonDB.Models.csproj", "{7FECE595-EEE0-4090-90FC-04BBB0DCFA86}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokemonDB.Client", "PokemonDB.CLient\PokemonDB.Client.csproj", "{65B60B62-8DF2-47B0-B78B-8F8DAED5191A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokemonDB.Data", "PokemonDB.Data\PokemonDB.Data.csproj", "{6AD77561-7F0C-428E-B32A-2648858D6F09}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7FECE595-EEE0-4090-90FC-04BBB0DCFA86}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7FECE595-EEE0-4090-90FC-04BBB0DCFA86}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7FECE595-EEE0-4090-90FC-04BBB0DCFA86}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7FECE595-EEE0-4090-90FC-04BBB0DCFA86}.Release|Any CPU.Build.0 = Release|Any CPU
+		{65B60B62-8DF2-47B0-B78B-8F8DAED5191A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65B60B62-8DF2-47B0-B78B-8F8DAED5191A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65B60B62-8DF2-47B0-B78B-8F8DAED5191A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65B60B62-8DF2-47B0-B78B-8F8DAED5191A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6AD77561-7F0C-428E-B32A-2648858D6F09}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6AD77561-7F0C-428E-B32A-2648858D6F09}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6AD77561-7F0C-428E-B32A-2648858D6F09}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6AD77561-7F0C-428E-B32A-2648858D6F09}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

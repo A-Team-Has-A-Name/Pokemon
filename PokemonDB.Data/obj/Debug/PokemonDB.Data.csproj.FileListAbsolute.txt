@@ -1,0 +1,12 @@
+E:\SoftUni\DB ADVANCED\Teamwork\PokemonDb\PokemonDB.Data\bin\Debug\PokemonDB.Data.dll.config
+E:\SoftUni\DB ADVANCED\Teamwork\PokemonDb\PokemonDB.Data\bin\Debug\PokemonDB.Data.dll
+E:\SoftUni\DB ADVANCED\Teamwork\PokemonDb\PokemonDB.Data\bin\Debug\PokemonDB.Data.pdb
+E:\SoftUni\DB ADVANCED\Teamwork\PokemonDb\PokemonDB.Data\bin\Debug\EntityFramework.dll
+E:\SoftUni\DB ADVANCED\Teamwork\PokemonDb\PokemonDB.Data\bin\Debug\EntityFramework.SqlServer.dll
+E:\SoftUni\DB ADVANCED\Teamwork\PokemonDb\PokemonDB.Data\bin\Debug\PokemonDB.Models.dll
+E:\SoftUni\DB ADVANCED\Teamwork\PokemonDb\PokemonDB.Data\bin\Debug\PokemonDB.Models.pdb
+E:\SoftUni\DB ADVANCED\Teamwork\PokemonDb\PokemonDB.Data\bin\Debug\EntityFramework.xml
+E:\SoftUni\DB ADVANCED\Teamwork\PokemonDb\PokemonDB.Data\bin\Debug\EntityFramework.SqlServer.xml
+E:\SoftUni\DB ADVANCED\Teamwork\PokemonDb\PokemonDB.Data\obj\Debug\PokemonDB.Data.dll
+E:\SoftUni\DB ADVANCED\Teamwork\PokemonDb\PokemonDB.Data\obj\Debug\PokemonDB.Data.pdb
+E:\SoftUni\DB ADVANCED\Teamwork\PokemonDb\PokemonDB.Data\obj\Debug\PokemonDB.Data.csprojResolveAssemblyReference.cache
