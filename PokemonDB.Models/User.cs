@@ -1,4 +1,4 @@
-﻿namespace PokemonDB.Models
+﻿namespace Pokemon.Models
 {
     using System;
     using System.Collections.Generic;

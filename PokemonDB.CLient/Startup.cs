@@ -1,7 +1,6 @@
-﻿
-namespace PokemonDB.CLient
+﻿namespace Pokemon.Game
 {
-    using PokemonDB.Data;
+    using Pokemon.Data;
     class Startup
     {
         static void Main(string[] args)

@@ -1,4 +1,4 @@
-namespace PokemonDB
+namespace Pokemon.Data
 {
     using Models;
     using System;
@@ -16,7 +16,7 @@ namespace PokemonDB
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Pokemon>()
-                .HasMany(p => p.Types)
+                .HasMany((Pokemon p) => p.Types)
                 .WithMany(t => t.Pokemon);
 
             modelBuilder.Entity<Pokemon>()

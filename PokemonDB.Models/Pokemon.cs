@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PokemonDB.Models
+namespace Pokemon.Models
 {
     public class Pokemon
     {
@@ -19,6 +19,5 @@ namespace PokemonDB.Models
         public virtual Trainer Trainer { get; set; }
         public int AreaId { get; set; }
         public virtual Area Area { get; set; }
-
     }
 }

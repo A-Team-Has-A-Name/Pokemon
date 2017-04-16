@@ -1,0 +1,5 @@
+E:\SoftUni\DB ADVANCED\Teamwork\PokemonDb\PokemonDB.Models\bin\Debug\PokemonDB.Models.dll
+E:\SoftUni\DB ADVANCED\Teamwork\PokemonDb\PokemonDB.Models\bin\Debug\PokemonDB.Models.pdb
+E:\SoftUni\DB ADVANCED\Teamwork\PokemonDb\PokemonDB.Models\obj\Debug\PokemonDB.Models.dll
+E:\SoftUni\DB ADVANCED\Teamwork\PokemonDb\PokemonDB.Models\obj\Debug\PokemonDB.Models.pdb
+E:\SoftUni\DB ADVANCED\Teamwork\PokemonDb\PokemonDB.Models\obj\Debug\Pokemon.Models.csprojResolveAssemblyReference.cache
