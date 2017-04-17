@@ -12,7 +12,7 @@ namespace Pokemon.Data
             : base("name=PokemonContext")
         {
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<PokemonContext, Configuration>());
-            //.SetInitializer(new DropCreateDatabaseAlways<PokemonContext>());
+            //Database.SetInitializer(new DropCreateDatabaseAlways<PokemonContext>());
         }
 
 

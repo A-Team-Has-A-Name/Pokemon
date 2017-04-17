@@ -2,6 +2,7 @@
 {
     using Microsoft.Xna.Framework.Content;
     using Microsoft.Xna.Framework.Graphics;
+
     public static class TextureLoader
     {
         public static Texture2D TrainerSheet { get; private set; }

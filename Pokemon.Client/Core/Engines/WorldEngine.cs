@@ -28,9 +28,7 @@
 
         public static void InitializeUpdatableObjects()
         {
-            updatableObjects.Add(SessionEngine.Trainer);
-            var session = SessionEngine.Trainer;
-            
+            updatableObjects.Add(SessionEngine.Trainer);            
         }
 
         public static void InitializeDrawableObjects()
