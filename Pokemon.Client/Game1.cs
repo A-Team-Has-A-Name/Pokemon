@@ -7,6 +7,7 @@
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
     using Microsoft.Xna.Framework.Input;
+    using Screens;
     using Textures;
 
     public class Game1 : Game
@@ -14,6 +15,7 @@
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Trainer trainer;
+        GameScreenManager screenManager;
 
         public Game1()
         {
@@ -41,19 +43,31 @@
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            screenManager = new GameScreenManager(spriteBatch, Content);
+            screenManager.OnGameExit += Exit;
+
+            screenManager.ChangeScreen(new WorldScreen(screenManager));
+
             TextureLoader.Load(this.Content);
         }
 
 
         protected override void UnloadContent()
         {
+            if(screenManager != null)
+            {
+                screenManager.Dispose();
 
+                screenManager = null;
+            }
         }
 
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
+            screenManager.ChangeBetweenScreens();
+
+            screenManager.HandleInput(gameTime);
+            screenManager.Update(gameTime);
 
             foreach  (IUpdatable u in Engine.UpdatableObjects)
             {

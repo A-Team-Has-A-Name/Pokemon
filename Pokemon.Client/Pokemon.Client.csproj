@@ -56,9 +56,13 @@
     <Compile Include="Interfaces\IDrawable.cs" />
     <Compile Include="Interfaces\IFacing.cs" />
     <Compile Include="Interfaces\IGameObject.cs" />
+    <Compile Include="Interfaces\IGameScreen.cs" />
+    <Compile Include="Interfaces\IGameScreenManager.cs" />
     <Compile Include="Interfaces\IMovable.cs" />
     <Compile Include="Interfaces\IUnit.cs" />
     <Compile Include="Interfaces\IUpdatable.cs" />
+    <Compile Include="Screens\GameScreenManager.cs" />
+    <Compile Include="Screens\WorldScreen.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Textures\TextureLoader.cs" />
