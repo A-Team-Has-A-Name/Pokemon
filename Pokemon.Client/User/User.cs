@@ -1,18 +1,10 @@
-﻿using System.Threading;
-using Microsoft.Xna.Framework;
-using Pokemon.Client.GameObjects.Units.PlayableCharacters;
-using Pokemon.Models;
-
-namespace Pokemon.Client.User
+﻿namespace Pokemon.Client.User
 {
+    using GameObjects.Units.PlayableCharacters;
     using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
 
-
-    class User
+    public class User
     {
         public string Username { get; set; }
 
@@ -22,16 +14,15 @@ namespace Pokemon.Client.User
 
         public List<Trainer> Trainers { get; set; }
 
-        {
-
-            //Transition all the TrainerModel objects into Trainer objects.
-            var tempTrainers = new List<Trainer>();
-            {
-                //TODO : The Vector2() should be the save point from last login
-                tempTrainers.Add(T);
-            }
-
-            this.Trainers = tempTrainers;
-        }
+        //{
+        //    //Transition all the TrainerModel objects into Trainer objects.
+        //    var tempTrainers = new List<Trainer>();
+        //    {
+        //        //TODO : The Vector2() should be the save point from last login
+        //        tempTrainers.Add(T);
+        //    }
+        //
+        //    this.Trainers = tempTrainers;
+        //}
     }
 }
