@@ -9,8 +9,12 @@ namespace Pokemon.Data
             using (var context = new PokemonContext())
             {
                 context.Database.Initialize(true);
-                SeedManager.SeedTypes(context);
-                SeedManager.SeedPokedexEntires(context);
+                //SeedManager.SeedTypes(context);
+                //SeedManager.SeedSkills(context);
+                //SeedManager.SeedPokedexEntires(context);
+                //SeedManager.SeedPokemon(context);
+                //SeedManager.SeedUsers(context);
+                //SeedManager.SeedTrainers(context);
             }
         }
     }
