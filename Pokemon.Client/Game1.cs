@@ -36,7 +36,7 @@
             base.Initialize();
             SessionEngine.InitializeTrainer();
             trainer = SessionEngine.Trainer;
-            screenManager.ChangeScreen(new WorldScreen(screenManager));
+            screenManager.ChangeScreen(new StartUpScreen(screenManager));
         }
 
         protected override void LoadContent()
