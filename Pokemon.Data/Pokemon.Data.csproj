@@ -59,6 +59,7 @@
     <Compile Include="Migrations\Seed\SeedManager.cs" />
     <Compile Include="PokemonContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Store\PokemonStore.cs" />
     <Compile Include="Store\TrainerStore.cs" />
     <Compile Include="Utils.cs" />
   </ItemGroup>

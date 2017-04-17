@@ -7,6 +7,8 @@
     using Pokemon.Client.Interfaces;
     using Microsoft.Xna.Framework.Input;
     using Core;
+    using Content;
+    using Core.Engines;
 
     public class WorldScreen : IGameScreen
     {
@@ -22,6 +24,7 @@
 
         public void Initialize(ContentManager content)
         {
+            WorldEngine.PopulateWildPokemon();
             WorldEngine.InitializeDrawableObjects();
             WorldEngine.InitializeUpdatableObjects();
         }
@@ -46,6 +49,14 @@
 
         public void Update(GameTime gameTime)
         {
+            foreach (var p in WorldEngine.WildPokemon)
+            {
+                if (Collision.CheckForCollisionBetweenCollidables(SessionEngine.Trainer, p))
+                {
+                    p.IsEncountered = true;
+                }
+            }
+
             foreach (IUpdatable u in WorldEngine.UpdatableObjects)
             {
                 u.Update(gameTime);

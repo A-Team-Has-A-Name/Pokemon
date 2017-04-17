@@ -42,7 +42,7 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Content\Collision.cs" />
+    <Compile Include="Core\Collision.cs" />
     <Compile Include="Core\Engines\SessionEngine.cs" />
     <Compile Include="Core\Engines\WorldEngine.cs" />
     <Compile Include="Game1.cs" />
