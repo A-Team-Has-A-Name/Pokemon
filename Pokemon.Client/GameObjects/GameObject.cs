@@ -5,6 +5,7 @@
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
     using Core;
+    using Core.Engines;
 
     public abstract class GameObject : IGameObject
     {
@@ -31,9 +32,9 @@
             get { return this.position.X; }
             set
             {
-                if (value > Engine.WindowWidth - TextureWidth)
+                if (value > SessionEngine.WindowWidth - TextureWidth)
                 {
-                    value = Engine.WindowWidth - TextureWidth;
+                    value = SessionEngine.WindowWidth - TextureWidth;
                 }
                 else if (value < 0)
                 {
@@ -49,9 +50,9 @@
             get { return this.position.Y; }
             set
             {
-                if (value > Engine.WindowHeight - TextureHeight)
+                if (value > SessionEngine.WindowHeight - TextureHeight)
                 {
-                    value = Engine.WindowHeight - TextureHeight;
+                    value = SessionEngine.WindowHeight - TextureHeight;
                 }
                 else if (value < 0)
                 {

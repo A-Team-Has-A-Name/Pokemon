@@ -44,6 +44,7 @@
 
         public override void Draw(SpriteBatch spriteBatch)
         {
+            
             spriteBatch.Draw(this.SpriteSheet, this.Position, this.FrameRect, Color.White);
         }
 

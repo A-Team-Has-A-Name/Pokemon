@@ -6,10 +6,12 @@
     using Microsoft.Xna.Framework.Graphics;
     using Pokemon.Client.Interfaces;
     using Microsoft.Xna.Framework.Input;
+    using Core;
 
     public class WorldScreen : IGameScreen
     {
         private bool exitGame;
+
         private readonly GameScreenManager screenManager;
         public bool IsPaused { get; private set; }
 
@@ -18,9 +20,10 @@
             this.screenManager = screenManager;
         }
 
-        public void Init(ContentManager content)
+        public void Initialize(ContentManager content)
         {
-
+            WorldEngine.InitializeDrawableObjects();
+            WorldEngine.InitializeUpdatableObjects();
         }
 
         public void ChangeBetweenScreens()
@@ -43,12 +46,19 @@
 
         public void Update(GameTime gameTime)
         {
-           
+            foreach (IUpdatable u in WorldEngine.UpdatableObjects)
+            {
+                u.Update(gameTime);
+            }
         }
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-           
+            foreach (Interfaces.IDrawable d in WorldEngine.DrawableObjects)
+            {
+                d.Draw(spriteBatch);
+            }
+
         }
 
         public void HandleInput(GameTime gameTime)
@@ -59,6 +69,12 @@
             {
                 exitGame = true;
             }
+
+            //removing current screen test
+            //if (keyboard.IsKeyDown(Keys.B))
+            //{
+            //    screenManager.PopScreen();
+            //}
         }
 
         public void Dispose()

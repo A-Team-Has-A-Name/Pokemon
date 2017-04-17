@@ -43,7 +43,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Content\Collision.cs" />
-    <Compile Include="Core\Engine.cs" />
+    <Compile Include="Core\Engines\SessionEngine.cs" />
+    <Compile Include="Core\Engines\WorldEngine.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="GameObjects\GameObject.cs" />
     <Compile Include="GameObjects\Units\NonPlayableCharacters\Pokemon.cs" />

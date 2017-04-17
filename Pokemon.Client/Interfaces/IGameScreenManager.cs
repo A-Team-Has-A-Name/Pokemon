@@ -14,6 +14,7 @@
         void HandleInput(GameTime gameTime);
         void ChangeBetweenScreens();
         void Exit();
+
         event Action OnGameExit;
     }
 }

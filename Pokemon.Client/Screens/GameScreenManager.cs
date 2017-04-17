@@ -29,7 +29,7 @@
 
             gameScreens.Add(screen);
 
-            screen.Init(content);
+            screen.Initialize(content);
         }
 
         public void PushScreen(IGameScreen screen)
@@ -43,7 +43,7 @@
 
             gameScreens.Add(screen);
 
-            screen.Init(content);
+            screen.Initialize(content);
         }
 
         private bool IsScreenListEmpty()
