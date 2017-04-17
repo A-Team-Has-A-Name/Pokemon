@@ -1,4 +1,6 @@
-﻿namespace Pokemon.Client.Screens
+﻿using Pokemon.Client.Core.Engines;
+
+namespace Pokemon.Client.Screens
 {
     using System;
     using Microsoft.Xna.Framework;

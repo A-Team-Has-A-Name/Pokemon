@@ -6,10 +6,12 @@
     {
         public static Texture2D TrainerSheet { get; private set; }
         public static Texture2D PokemonSheet { get; private set; }
+        public static Texture2D ButtonSheet { get; private set; }
         public static void Load(ContentManager content)
         {
             TrainerSheet = content.Load<Texture2D>("Sprites/RedTrainer_96x96");
             PokemonSheet = content.Load<Texture2D>("Sprites/Pokemon_80x80");
+            ButtonSheet = content.Load<Texture2D>("Sprites/Button");
         }
     }
 }
