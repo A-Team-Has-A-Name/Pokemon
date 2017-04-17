@@ -17,6 +17,7 @@
         SpriteBatch spriteBatch;
         Trainer trainer;
         GameScreenManager screenManager;
+        
 
         public Game1()
         {

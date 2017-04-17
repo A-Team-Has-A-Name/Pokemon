@@ -4,6 +4,10 @@
     using Pokemon.Client.Textures;
     using Microsoft.Xna.Framework;
     using Pokemon.Client.Input;
+    using Models;
+    using NonPlayableCharacters;
+    using System.Collections.Generic;
+
     public class Trainer : Unit
     {
         private const int spriteWidth = 96;
@@ -13,9 +17,15 @@
         private const int TrainerWalkingFrameCount = 2;
         private const int TrainerAnimationDelay = 100;
 
-        public Trainer(Vector2 position)
+        public string Name { get; set; }
+        public List<Pokemon> CaughtPokemon { get; set; }
+        public Pokemon[] Team { get; set; }
+
+        public Trainer(TrainerModel model)
         {
-            this.Position = position;
+            this.Name = model.Name;
+
+            this.Position = new Vector2(100, 100);
             this.BoundingBox = new Rectangle(
                 (int)this.X,
                 (int)this.Y,
@@ -25,8 +35,7 @@
             this.SpriteSheet = TextureLoader.TrainerSheet;
             this.TextureHeight = spriteHeight;
             this.TextureWidth = spriteWidth;
-
-            
+          
             this.DefaultMovementSpeed = TrainerDefaultMovementSpeed;
             this.MovementSpeed = TrainerDefaultMovementSpeed;
 

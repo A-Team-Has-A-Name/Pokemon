@@ -15,6 +15,8 @@
         public string Name { get; set; }
         public int Damage { get; set; }
         public int PowerPoints { get; set; }
+        public int TypeId { get; set; }
+        public TypeModel Type { get; set; }
         public virtual ICollection<PokedexEntry> PossibleSkillOwners { get; set; }
         public virtual ICollection<PokemonModel> CurrentSkillOwners { get; set; }
     }

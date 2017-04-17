@@ -1,6 +1,7 @@
 namespace Pokemon.Data
 {
     using Models;
+    using PokemonDB.Data.Migrations;
     using System;
     using System.Data.Entity;
     using System.Linq;
@@ -10,8 +11,10 @@ namespace Pokemon.Data
         public PokemonContext()
             : base("name=PokemonContext")
         {
-            Database.SetInitializer(new DropCreateDatabaseAlways<PokemonContext>());
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<PokemonContext, Configuration>());
+            //.SetInitializer(new DropCreateDatabaseAlways<PokemonContext>());
         }
+
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -57,15 +60,15 @@ namespace Pokemon.Data
                     t.MapLeftKey("TypeId");
                     t.MapRightKey("PokedexEntryId");
                 });
-
-
-
-
+          
         }
 
-        public virtual DbSet<PokedexEntry> Pokemon { get; set; }
-        public virtual DbSet<TypeModel> PokemonTypes { get; set; }
-        public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<TrainerTeamMember> TrainerTeamMembers { get; set; }
+        public virtual DbSet<SkillModel> Skills { get; set; }
+        public virtual DbSet<PokemonModel> Pokemon { get; set; }
+        public virtual DbSet<PokedexEntry> PokedexEntries { get; set; }
+        public virtual DbSet<TypeModel> Types { get; set; }
+        public virtual DbSet<UserModel> Users { get; set; }
         public virtual DbSet<TrainerModel> Trainers { get; set; }
         public virtual DbSet<AreaModel> Areas { get; set; }
         public virtual DbSet<ItemModel> Items { get; set; }

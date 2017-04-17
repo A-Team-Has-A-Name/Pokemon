@@ -16,7 +16,7 @@
         public int Id { get; set; }
         public string Name { get; set; }
         public int UserId { get; set; }
-        public virtual User User { get; set; }
+        public virtual UserModel User { get; set; }
         public virtual ICollection<TrainerTeamMember> TrainerTeamMembers { get; set; }
         public virtual ICollection<PokemonModel> CaughtPokemon { get; set; }
         public virtual ICollection<ItemModel> Items { get; set; }

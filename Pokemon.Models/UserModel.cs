@@ -2,12 +2,14 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations.Schema;
 
-    public class User
+    [Table("User")]
+    public class UserModel
     {
-        public User()
+        public UserModel()
         {
-            this.Characters = new HashSet<TrainerModel>();
+            this.Trainers = new HashSet<TrainerModel>();
         }
         //TODO: Add validation
         public int Id { get; set; }
@@ -16,6 +18,6 @@
         public string Email { get; set; }
         public DateTime RegistrationDate { get; set; }
         public DateTime LastOnlineDate { get; set; }
-        public virtual ICollection<TrainerModel> Characters { get; set; }
+        public virtual ICollection<TrainerModel> Trainers { get; set; }
     }
 }

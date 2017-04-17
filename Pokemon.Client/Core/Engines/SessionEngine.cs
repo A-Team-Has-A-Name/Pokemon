@@ -4,6 +4,7 @@
     using Interfaces;
     using Microsoft.Xna.Framework;
     using Pokemon.Client.GameObjects.Units.PlayableCharacters;
+    using Models;
 
     //Info shared between screens
     public static class SessionEngine
@@ -11,6 +12,7 @@
         public const int WindowHeight = 900;
         public const int WindowWidth = 1400;
         private static Trainer currentTrainer;
+        
         //keep user data here maybe
 
         public static Trainer Trainer
@@ -23,8 +25,12 @@
 
         public static void InitializeTrainer()
         {
-            Vector2 pos = new Vector2(100, 100);
-            SessionEngine.currentTrainer = new Trainer(pos);
+            var model = new TrainerModel()
+            {
+                Name = "Pesho"
+            };
+
+            SessionEngine.currentTrainer = new Trainer(model);
         }
 
         public static void Update(GameTime gameTime)

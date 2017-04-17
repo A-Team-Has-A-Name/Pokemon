@@ -14,6 +14,7 @@
             this.PossibleSkills = new HashSet<SkillModel>();
         }
         public int Id { get; set; }
+        public int Number { get; set; }
         public string Name { get; set; }
         public int BaseHealth { get; set; }
         public int BaseAttack { get; set; }

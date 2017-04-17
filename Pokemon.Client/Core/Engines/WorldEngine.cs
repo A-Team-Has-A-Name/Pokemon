@@ -30,7 +30,7 @@
         {
             updatableObjects.Add(SessionEngine.Trainer);
             var session = SessionEngine.Trainer;
-            System.Console.WriteLine(updatableObjects.ToString());
+            
         }
 
         public static void InitializeDrawableObjects()
