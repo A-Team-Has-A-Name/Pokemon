@@ -47,6 +47,7 @@ namespace Pokemon.Client.Screens
         {
             foreach (var p in WorldEngine.WildPokemon)
             {
+                //TODO: fix collision bug - too far away but returns true
                 if (Collision.CheckForCollisionBetweenCollidables(SessionEngine.Trainer, p))
                 {
                     p.IsEncountered = true;
@@ -62,14 +63,12 @@ namespace Pokemon.Client.Screens
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-
             spriteBatch.Draw(WorldEngine.background, new Vector2(0, 0), new Rectangle(0, 0, SessionEngine.WindowWidth, SessionEngine.WindowHeight), Color.White);
 
             foreach (Interfaces.IDrawable d in WorldEngine.DrawableObjects)
             {
                 d.Draw(spriteBatch);
             }
-
         }
 
         public void HandleInput(GameTime gameTime)
@@ -81,11 +80,6 @@ namespace Pokemon.Client.Screens
                 exitGame = true;
             }
 
-            //removing current screen test
-            //if (keyboard.IsKeyDown(Keys.B))
-            //{
-            //    screenManager.PopScreen();
-            //}
         }
 
         public void Dispose()
