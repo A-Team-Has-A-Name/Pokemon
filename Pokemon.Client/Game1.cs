@@ -62,7 +62,7 @@
 
         protected override void Update(GameTime gameTime)
         {
-            screenManager.ChangeBetweenScreens();
+            //screenManager.ChangeBetweenScreens();
 
             screenManager.HandleInput(gameTime);
             screenManager.Update(gameTime);

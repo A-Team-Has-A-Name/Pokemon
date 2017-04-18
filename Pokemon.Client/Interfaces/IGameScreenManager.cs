@@ -12,7 +12,7 @@
         void Update(GameTime gameTime);
         void Draw(GameTime gameTime, SpriteBatch spriteBatch);
         void HandleInput(GameTime gameTime);
-        void ChangeBetweenScreens();
+        void ChangeBetweenScreens(IGameScreen screen);
         void Exit();
 
         event Action OnGameExit;

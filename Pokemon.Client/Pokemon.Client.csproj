@@ -42,7 +42,7 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Content\Collision.cs" />
+    <Compile Include="Core\Collision.cs" />
     <Compile Include="Core\Engines\SessionEngine.cs" />
     <Compile Include="Core\Engines\StartUpEngine.cs" />
     <Compile Include="Core\Engines\WorldEngine.cs" />
@@ -91,8 +91,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Sprites\Button.png" />
-    <Content Include="Content\Sprites\Pokemon_80x80.png" />
+    <Content Include="Content\Sprites\Pokemon_100x100.png" />
     <Content Include="Content\Sprites\RedTrainer_96x96.png" />
+    <Content Include="Content\Sprites\WorldBackground_1180x860.png" />
     <Content Include="Icon.ico" />
   </ItemGroup>
   <ItemGroup>

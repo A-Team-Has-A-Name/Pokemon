@@ -67,19 +67,18 @@ namespace Pokemon.Client.Screens
 
         public void HandleInput(GameTime gameTime)
         {
-            KeyboardState KS = new KeyboardState();
+            KeyboardState KS = Keyboard.GetState();
+
+            //For debugging purposes - quick access to WorldScreen
+            if (KS.IsKeyDown(Keys.W))
+            {
+                screenManager.ChangeBetweenScreens(new WorldScreen(screenManager));
+            }
+
             foreach (var button in Buttons)
             {
                 //TODO: Fix the hover management system
                 button.HandleInput(KS,false);
-            }
-        }
-
-        public void ChangeBetweenScreens()
-        {
-            if ( exitGame )
-            {
-                screenManager.Exit ( );
             }
         }
 

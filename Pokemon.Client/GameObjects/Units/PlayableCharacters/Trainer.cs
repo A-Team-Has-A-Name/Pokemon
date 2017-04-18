@@ -12,7 +12,9 @@
     {
         private const int spriteWidth = 96;
         private const int spriteHeight = 96;
-        private const float TrainerDefaultMovementSpeed = 10;
+        private const int Height = 90;
+        private const int Width = 90;
+        private const float TrainerDefaultMovementSpeed = 5;
         private const int TrainerIdleFrameCount = 1;
         private const int TrainerWalkingFrameCount = 2;
         private const int TrainerAnimationDelay = 100;
@@ -29,8 +31,8 @@
             this.BoundingBox = new Rectangle(
                 (int)this.X,
                 (int)this.Y,
-                spriteWidth,
-                spriteHeight);
+                Width,
+                Height);
 
             this.SpriteSheet = TextureLoader.TrainerSheet;
             this.TextureHeight = spriteHeight;
@@ -41,22 +43,33 @@
 
             this.Delay = TrainerAnimationDelay;
             this.BasicAnimationFrameCount = TrainerWalkingFrameCount;
-            
+            this.IsSurprised = false;
         }
 
+        public bool IsSurprised { get; set; }
         public override void Update(GameTime gameTime)
         {
             InputHandler.HandleInput(gameTime, this);
+            if (IsSurprised)
+            {
+                this.IsMoving = false;
+            }
+
             this.ManageAnimation(gameTime);
             this.ManageMovement(gameTime);
+            this.UpdateBoundingBox();
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            
-            spriteBatch.Draw(this.SpriteSheet, this.Position, this.FrameRect, Color.White);
-        }
+            if (IsSurprised)
+            {
+                this.GetSurprised(spriteBatch);
+                this.IsMoving = false;
+            }
 
+            spriteBatch.Draw(this.SpriteSheet, this.BoundingBox, this.FrameRect, Color.White);
+        }
 
         //Collision
         protected override void UpdateBoundingBox()
@@ -76,6 +89,7 @@
             {
                 this.AnimateIdle(gameTime);
             }
+
         }
 
         protected void AnimateMoving(GameTime gameTime)
@@ -119,5 +133,21 @@
 
             this.FrameRect = new Rectangle(0, y, this.TextureWidth, this.TextureHeight);
         }
+
+        public void GetSurprised(SpriteBatch spriteBatch)
+        {
+            //get coordinates of surprised sprite
+            int x = 0;
+            int y = 4 * this.TextureHeight;
+            int width = 37;
+            int height = 36;
+
+            int xPos = (int)this.X + 25;
+            int yPos = (int)this.Y - 25;
+
+            var frameRect = new Rectangle(x, y, width, height);
+            spriteBatch.Draw(this.SpriteSheet, new Vector2(xPos, yPos), frameRect, Color.White);
+        }
+
     }
 }

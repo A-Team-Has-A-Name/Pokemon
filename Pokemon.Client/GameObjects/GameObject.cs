@@ -21,7 +21,6 @@
             {
                 return this.position;
             }
-
             set
             {
                 this.position = value;
