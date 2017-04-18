@@ -10,13 +10,17 @@
 
     public class Pokemon : GameObject, IUpdatable, IDamagable
     {
-        private const int pokemonSpriteHeight = 80;
-        private const int pokemonSpriteWidth = 80;
+        private const int pokemonSpriteHeight = 100;
+        private const int pokemonSpriteWidth = 100;
+        private const int height = 130;
+        private const int width = 130;
         private static Random random = new Random();
         private string nickname;
         public Pokemon(PokemonModel model)
         { 
             this.SpriteSheet = TextureLoader.PokemonSheet;
+            this.TextureHeight = pokemonSpriteHeight;
+            this.TextureWidth = pokemonSpriteWidth;
 
             this.Name = model.PokedexEntry.Name;           
             this.Nickname = model.Nickname;
@@ -29,7 +33,7 @@
             var spriteX = model.PokedexEntry.SpriteX;
             var spriteY = model.PokedexEntry.SpriteY;
             this.FrameRect = new Rectangle(spriteX, spriteY, pokemonSpriteWidth, pokemonSpriteHeight );
-            this.BoundingBox = new Rectangle((int)this.X, (int)this.Y, pokemonSpriteWidth, pokemonSpriteHeight);
+            this.BoundingBox = new Rectangle((int)this.X, (int)this.Y, width, height);
             if(model.TrainerId != null)
             {
                 this.IsEncountered = true;
@@ -80,13 +84,15 @@
         {                       
             if (!IsHidden)
             {
-                spriteBatch.Draw(this.SpriteSheet,this.Position, this.FrameRect, Color.White);
+                spriteBatch.Draw(this.SpriteSheet,this.BoundingBox, this.FrameRect, Color.White);
             }           
         }
         public Vector2 GenerateRandomVector()
-        {           
-            int x = random.Next(0, SessionEngine.WindowWidth - this.TextureWidth + 1);
-            int y = random.Next(0, SessionEngine.WindowHeight - this.TextureHeight + 1);
+        {
+            int xLimit = SessionEngine.WindowWidth - this.TextureWidth + 1;
+            int yLimit = SessionEngine.WindowHeight - this.TextureHeight + 1;
+            int x = random.Next(0, xLimit);
+            int y = random.Next(0, yLimit);
 
             return new Vector2(x, y);
         }

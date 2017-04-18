@@ -9,8 +9,8 @@
     //Info shared between screens
     public static class SessionEngine
     {
-        public const int WindowHeight = 900;
-        public const int WindowWidth = 1400;
+        public const int WindowHeight = 860;
+        public const int WindowWidth = 1180;
         private static Trainer currentTrainer;
         
         //keep user data here maybe

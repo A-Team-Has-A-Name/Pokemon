@@ -11,12 +11,14 @@ namespace Pokemon.Client.Screens
     using Core;
     using Content;
     using Core.Engines;
+    using Textures;
 
     public class WorldScreen : IGameScreen
     {
         private bool exitGame;
 
         private readonly GameScreenManager screenManager;
+
         public bool IsPaused { get; private set; }
 
         public WorldScreen(GameScreenManager screenManager)
@@ -29,14 +31,6 @@ namespace Pokemon.Client.Screens
             WorldEngine.PopulateWildPokemon();
             WorldEngine.InitializeDrawableObjects();
             WorldEngine.InitializeUpdatableObjects();
-        }
-
-        public void ChangeBetweenScreens()
-        {
-            if (exitGame)
-            {
-                screenManager.Exit();
-            }
         }
     
         public void Pause()
@@ -56,6 +50,7 @@ namespace Pokemon.Client.Screens
                 if (Collision.CheckForCollisionBetweenCollidables(SessionEngine.Trainer, p))
                 {
                     p.IsEncountered = true;
+                    SessionEngine.Trainer.IsSurprised = true;
                 }
             }
 
@@ -67,6 +62,9 @@ namespace Pokemon.Client.Screens
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
+
+            spriteBatch.Draw(WorldEngine.background, new Vector2(0, 0), new Rectangle(0, 0, SessionEngine.WindowWidth, SessionEngine.WindowHeight), Color.White);
+
             foreach (Interfaces.IDrawable d in WorldEngine.DrawableObjects)
             {
                 d.Draw(spriteBatch);

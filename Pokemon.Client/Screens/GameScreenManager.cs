@@ -88,15 +88,15 @@
             }
         }
 
-        public void ChangeBetweenScreens()
+        public void ChangeBetweenScreens(IGameScreen screen)
         {
             if (!IsScreenListEmpty())
             {
-                var screen = GetCurretScreen();
 
                 if (!screen.IsPaused)
                 {
-                    screen.ChangeBetweenScreens();
+                    PushScreen(screen);
+                   // screen.ChangeBetweenScreens();
                 }
             }
         }
@@ -157,22 +157,6 @@
         public void Dispose()
         {
             RemoveAllScreens();
-        }
-
-        public void Init(ContentManager content)
-        {
-           
-        }
-
-        public void Pause()
-        {
-           
-        }
-
-
-        public void Resume()
-        {
-            
         }
     }
 }

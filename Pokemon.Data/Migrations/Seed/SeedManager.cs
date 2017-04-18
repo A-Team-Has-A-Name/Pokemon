@@ -194,7 +194,7 @@
                 Number = 4,
                 BaseHealth = 39,
                 BaseAttack = 52,
-                SpriteX = 3 * 80,
+                SpriteX = 3 * 100,
                 SpriteY = 0
             };
             var fire = context.Types.Where(t => t.Name == "Fire").FirstOrDefault();
@@ -211,7 +211,7 @@
                 Number = 7,
                 BaseHealth = 44,
                 BaseAttack = 48,
-                SpriteX = 6 * 80,
+                SpriteX = 6 * 100,
                 SpriteY = 0
             };
             var water = context.Types.Where(t => t.Name == "Water").FirstOrDefault();
@@ -228,7 +228,7 @@
                 Number = 25,
                 BaseHealth = 35,
                 BaseAttack = 55,
-                SpriteX = 24 * 80,
+                SpriteX = 24 * 100,
                 SpriteY = 0
             };
             var electric = context.Types.Where(t => t.Name == "Electric").FirstOrDefault();
@@ -245,8 +245,8 @@
                 Number = 133,
                 BaseHealth = 55,
                 BaseAttack = 55,
-                SpriteX = 20 * 80,
-                SpriteY = 4 * 80
+                SpriteX = 20 * 100,
+                SpriteY = 4 * 100
             };
             var normal = context.Types.Where(t => t.Name == "Normal").FirstOrDefault();
             eevee.Types.Add(normal);

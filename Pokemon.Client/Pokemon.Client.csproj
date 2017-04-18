@@ -91,8 +91,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Sprites\Button.png" />
-    <Content Include="Content\Sprites\Pokemon_80x80.png" />
+    <Content Include="Content\Sprites\Pokemon_100x100.png" />
     <Content Include="Content\Sprites\RedTrainer_96x96.png" />
+    <Content Include="Content\Sprites\WorldBackground_1180x860.png" />
     <Content Include="Icon.ico" />
   </ItemGroup>
   <ItemGroup>

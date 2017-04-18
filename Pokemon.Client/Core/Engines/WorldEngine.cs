@@ -5,10 +5,13 @@
     using GameObjects.Units.NonPlayableCharacters;
     using System.Collections.Generic;
     using PokemonDB.Data.Store;
+    using Textures;
+    using Microsoft.Xna.Framework.Graphics;
 
     //Engine for the World Screen
     public static class WorldEngine
     {
+        public static Texture2D background = TextureLoader.WorldBackground;
         private static List<IUpdatable> updatableObjects = new List<IUpdatable>();
         private static List<Interfaces.IDrawable> drawableObjects = new List<Interfaces.IDrawable>();
         private static List<Pokemon> wildPokemon = new List<Pokemon>();

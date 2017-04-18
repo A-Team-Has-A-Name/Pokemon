@@ -18,6 +18,5 @@
         void Draw(GameTime gameTime, SpriteBatch spriteBatch);
         void HandleInput(GameTime gameTime);
 
-        void ChangeBetweenScreens();
     }
 }
