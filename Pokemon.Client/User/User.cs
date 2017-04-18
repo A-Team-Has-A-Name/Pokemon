@@ -22,12 +22,18 @@ namespace Pokemon.Client.User
 
         public List<Trainer> Trainers { get; set; }
 
+        public User(UserModel model)
         {
+            this.Username = model.Username;
+            this.RegistrationDate = model.RegistrationDate;
+            this.LastOnlineDate = model.LastOnlineDate;
 
             //Transition all the TrainerModel objects into Trainer objects.
             var tempTrainers = new List<Trainer>();
+            foreach (var trainer in model.Trainers)
             {
                 //TODO : The Vector2() should be the save point from last login
+                Trainer T = new Trainer(trainer);
                 tempTrainers.Add(T);
             }
 
