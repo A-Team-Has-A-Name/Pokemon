@@ -94,6 +94,28 @@ namespace Pokemon.Client.Core.Engines
             buttons.Add (ExitButton);
 
 
+            //Play
+
+            Text PlayText = new Text
+            {
+                Color = Color.Black,
+                Message = "Play",
+                SpriteFont = contentManager.Load<SpriteFont> ("Fonts/Arial")
+            };
+
+            Button PlayButton = new Button
+            {
+                SpriteSheet = TextureLoader.ButtonSheet,
+                DefaultSpriteColour = Color.White,
+                HoverSpriteColour = Color.Orange,
+                Text = PlayText,
+                DefaultTextColour = Color.Black,
+                HoverTextColour = Color.White
+            };
+
+            buttons.Add (PlayButton);
+
+
         }
 
         public static void Exit()

@@ -77,6 +77,7 @@ namespace Pokemon.Client.UI_Elements
                 {
                     onClicked( );
                 };
+                currentButtonState = ButtonState.None;
             }
             if (currentButtonState == ButtonState.Hovered)
             {

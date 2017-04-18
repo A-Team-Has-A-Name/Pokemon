@@ -55,19 +55,28 @@ namespace Pokemon.Client.Screens
             screenManager.ChangeBetweenScreens (new RegisterScreen (screenManager));
         }
 
+        public void ChangeToWorldScreen()
+        {
+            screenManager.ChangeBetweenScreens (new WorldScreen(screenManager));
+        }
         public void Initialize ( ContentManager content )
         {
+            //Generate the buttons
             CurrentlyHoveredButton = 0;
             StartUpEngine.GenerateButtons (content);
             this.Buttons = StartUpEngine.Buttons;
 
+            //Center buttons
             float baseButtonFrameXPosition = ( SessionEngine.WindowWidth - TextureLoader.ButtonTextureWidth ) / 2;
             float baseButtonFrameYPosition = ( SessionEngine.WindowHeight - TextureLoader.ButtonTextureHeight * ( this.Buttons.Count + 1 ) ) / 2;
             Vector2 baseButtonFramePosition = new Vector2 (baseButtonFrameXPosition, baseButtonFrameYPosition);
 
+            //Attach the functions to the buttons
             Buttons.Where(b => b.Text.Message == "Log In").FirstOrDefault().OnClicked += ChangeToLogInScreen;
             Buttons.Where(b => b.Text.Message == "Register").FirstOrDefault().OnClicked += ChangeToRegisterScreen;
+            Buttons.Where(b => b.Text.Message == "Play").FirstOrDefault().OnClicked += ChangeToWorldScreen;
 
+            //Initiallize first button to be hovered
             for ( int i = 0; i < this.Buttons.Count; i++ )
             {
                 if ( this.CurrentlyHoveredButton == i )
@@ -89,6 +98,7 @@ namespace Pokemon.Client.Screens
 
         public void Draw ( GameTime gameTime, SpriteBatch spriteBatch )
         {
+            spriteBatch.Draw (TextureLoader.MenuBackgorund, Vector2.Zero, new Rectangle (0, 0, SessionEngine.WindowWidth,SessionEngine.WindowHeight), Color.White);
             foreach ( var button in this.Buttons )
             {
                 button.Draw (spriteBatch);

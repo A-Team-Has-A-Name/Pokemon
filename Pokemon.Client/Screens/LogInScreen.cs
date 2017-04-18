@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Pokemon.Client.Core.Engines;
 using Pokemon.Client.Interfaces;
+using Pokemon.Client.Textures;
 
 namespace Pokemon.Client.Screens
 {
@@ -38,7 +40,7 @@ namespace Pokemon.Client.Screens
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            
+            spriteBatch.Draw (TextureLoader.MenuBackgorund, Vector2.Zero, new Rectangle (0, 0, SessionEngine.WindowWidth,SessionEngine.WindowHeight), Color.White);
         }
 
         public void HandleInput(GameTime gameTime)
