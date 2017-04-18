@@ -13,13 +13,18 @@ namespace Pokemon.Client.Textures
         public static Texture2D TextBoxSheet { get; private set; }
         public static Texture2D WorldBackground { get; private set; }
         public static Texture2D MenuBackgorund { get; private set; }
-     
+        
+
+
         public static int ButtonTextureHeight = 111;
         public static int ButtonTextureWidth = 306;
         public static int TextBoxWidth = 798;
         public static int TextBoxHeigth = 195;
         public static int MenuBackgorundWidth = SessionEngine.WindowWidth;
         public static int MenuBackgorundHeigth = SessionEngine.WindowHeight;
+        public static double TextBoxScale = 0.5;
+        public static int TextBoxWidthScaled = (int)(798 * TextBoxScale);
+        public static int TextBoxHeigthScaled = (int)(195 * TextBoxScale);
 
 
         public static void Load(ContentManager content)
