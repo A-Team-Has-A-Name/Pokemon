@@ -1,4 +1,6 @@
-﻿namespace Pokemon.Client
+﻿using Pokemon.Client.Core.Engines;
+
+namespace Pokemon.Client
 {
     using Data;
     using System;
@@ -16,7 +18,9 @@
         {
             Utils.InitDB();
             using (var game = new Game1())
-                game.Run();
+                game.Run ( );
+               
+               
         }
     }
 #endif

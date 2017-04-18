@@ -64,6 +64,8 @@
     <Compile Include="Interfaces\IUnit.cs" />
     <Compile Include="Interfaces\IUpdatable.cs" />
     <Compile Include="Screens\GameScreenManager.cs" />
+    <Compile Include="Screens\LogInScreen.cs" />
+    <Compile Include="Screens\RegisterScreen.cs" />
     <Compile Include="Screens\StartUpScreen.cs" />
     <Compile Include="Screens\WorldScreen.cs" />
     <Compile Include="Startup.cs" />

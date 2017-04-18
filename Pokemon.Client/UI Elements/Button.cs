@@ -9,7 +9,7 @@ namespace Pokemon.Client.UI_Elements
     using System;
     using Microsoft.Xna.Framework;
 
-    internal enum ButtonState
+    public enum ButtonState
     {
         None,
         Hovered,
@@ -19,6 +19,8 @@ namespace Pokemon.Client.UI_Elements
     public class Button : Interfaces.IDrawable, IUpdatable
     {
         public  Texture2D SpriteSheet { get; set; }
+
+        public Vector2 Position { get; set; }
 
         internal Color DefaultSpriteColour;
 
@@ -32,7 +34,7 @@ namespace Pokemon.Client.UI_Elements
 
         private ButtonState previousButtonState;
 
-        private ButtonState currentButtonState;
+        public ButtonState currentButtonState { get; set; }
 
         private Action onClicked;
 
@@ -69,6 +71,22 @@ namespace Pokemon.Client.UI_Elements
 
         public void Update(GameTime gameTime)
         {
+            if (currentButtonState == ButtonState.Clicked)
+            {
+                if ( onClicked != null )
+                {
+                    onClicked( );
+                };
+            }
+            if (currentButtonState == ButtonState.Hovered)
+            {
+                if (onHovered != null)
+                {
+                    onHovered();
+                }
+                
+            }
+
             Text.Color = DefaultTextColour;
 
             if ( currentButtonState == ButtonState.Hovered )
@@ -99,18 +117,21 @@ namespace Pokemon.Client.UI_Elements
             }
         }
 
-        public void Draw ( SpriteBatch spriteBatch )
+        public void Draw ( SpriteBatch spriteBatch)
         {
+            
             if ( currentButtonState == ButtonState.Hovered )
             {
-                spriteBatch.Draw (this.SpriteSheet, new Vector2 ( ), new Rectangle (0, 0, 200, 100), HoverSpriteColour);
+                spriteBatch.Draw (this.SpriteSheet, this.Position, new Rectangle (0, 0, 306,111), HoverSpriteColour);
             }
             else
             {
-                spriteBatch.Draw (this.SpriteSheet, new Vector2 ( ), new Rectangle (0, 0, 200, 100), DefaultSpriteColour);
+                spriteBatch.Draw (this.SpriteSheet, this.Position, new Rectangle (0, 0, 306, 111), DefaultSpriteColour);
             }
-
+            Text.Position = this.Position +  new Vector2(120f,40f);
+            Console.WriteLine(Text.Position);
             Text.Draw (spriteBatch);
         }
+
     }
 }

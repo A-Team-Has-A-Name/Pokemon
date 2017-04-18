@@ -9,6 +9,8 @@
         public static Texture2D PokemonSheet { get; private set; }
         public static Texture2D ButtonSheet { get; private set; }
         public static Texture2D WorldBackground { get; private set; }
+        public static int ButtonTextureHeight = 111;
+        public static int ButtonTextureWidth = 306;
 
         public static void Load(ContentManager content)
         {

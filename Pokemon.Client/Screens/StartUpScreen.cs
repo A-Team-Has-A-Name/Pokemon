@@ -4,7 +4,9 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Pokemon.Client.Core.Engines;
 using Pokemon.Client.Interfaces;
+using Pokemon.Client.Textures;
 using Pokemon.Client.UI_Elements;
+using ButtonState = Pokemon.Client.UI_Elements.ButtonState;
 
 namespace Pokemon.Client.Screens
 {
@@ -17,6 +19,8 @@ namespace Pokemon.Client.Screens
     public class StartUpScreen : IGameScreen
     {
         private readonly GameScreenManager screenManager;
+
+        private int CurrentlyHoveredButton { get; set; }
 
         private bool exitGame;
 
@@ -31,60 +35,123 @@ namespace Pokemon.Client.Screens
             this.screenManager = screenManager;
         }
 
-        public void Pause()
+        public void Pause ( )
         {
             this.IsPaused = true;
         }
 
-        public void Resume()
+        public void Resume ( )
         {
             this.IsPaused = false;
         }
 
-        public void Initialize(ContentManager content)
+        public void ChangeToLogInScreen()
         {
-            StartUpEngine.GenerateButtons(content);
-            StartUpEngine.InitializeUpdatableObjects(content);
-            StartUpEngine.InitializeDrawableObjects(content);
+            screenManager.ChangeBetweenScreens (new LogInScreen (screenManager));
+        }
+
+        public void ChangeToRegisterScreen ( )
+        {
+            screenManager.ChangeBetweenScreens (new RegisterScreen (screenManager));
+        }
+
+        public void Initialize ( ContentManager content )
+        {
+            CurrentlyHoveredButton = 0;
+            StartUpEngine.GenerateButtons (content);
             this.Buttons = StartUpEngine.Buttons;
-        }
 
-        public void Update(GameTime gameTime)
-        {
-            foreach (var updatableObject in StartUpEngine.UpdatableObjects)
-            {
-                updatableObject.Update(gameTime);
-            }   
-        }
+            float baseButtonFrameXPosition = ( SessionEngine.WindowWidth - TextureLoader.ButtonTextureWidth ) / 2;
+            float baseButtonFrameYPosition = ( SessionEngine.WindowHeight - TextureLoader.ButtonTextureHeight * ( this.Buttons.Count + 1 ) ) / 2;
+            Vector2 baseButtonFramePosition = new Vector2 (baseButtonFrameXPosition, baseButtonFrameYPosition);
 
-        public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
-        {
-            foreach (var drawableObject in StartUpEngine.DrawableObjects)
+            Buttons.Where(b => b.Text.Message == "Log In").FirstOrDefault().OnClicked += ChangeToLogInScreen;
+            Buttons.Where(b => b.Text.Message == "Register").FirstOrDefault().OnClicked += ChangeToRegisterScreen;
+
+            for ( int i = 0; i < this.Buttons.Count; i++ )
             {
-                drawableObject.Draw(spriteBatch);
+                if ( this.CurrentlyHoveredButton == i )
+                {
+                    this.Buttons[i].currentButtonState = ButtonState.Hovered;
+                }
+                Vector2 currentButtonPosition = new Vector2 (0, i * TextureLoader.ButtonTextureHeight);
+                this.Buttons[i].Position = baseButtonFramePosition + currentButtonPosition;
             }
         }
 
-        public void HandleInput(GameTime gameTime)
+        public void Update ( GameTime gameTime )
         {
-            KeyboardState KS = Keyboard.GetState();
-
-            //For debugging purposes - quick access to WorldScreen
-            if (KS.IsKeyDown(Keys.W))
+            foreach ( var button in this.Buttons )
             {
-                screenManager.ChangeBetweenScreens(new WorldScreen(screenManager));
-            }
-
-            foreach (var button in Buttons)
-            {
-                //TODO: Fix the hover management system
-                button.HandleInput(KS,false);
+                button.Update (gameTime);
             }
         }
 
-        public void Dispose()
+        public void Draw ( GameTime gameTime, SpriteBatch spriteBatch )
         {
-            
+            foreach ( var button in this.Buttons )
+            {
+                button.Draw (spriteBatch);
+            }
+        }
+
+        public void HandleInput ( GameTime gameTime )
+        {
+            KeyboardState KS = Keyboard.GetState ( );
+
+            /*For debugging purposes - quick access to WorldScreen
+            if ( KS.IsKeyDown (Keys.W) )
+            {
+                screenManager.ChangeBetweenScreens (new WorldScreen (screenManager));
+            }
+            */
+
+
+            //Handle UP/Down browsing of the buttons
+
+            if ( KS.IsKeyDown (Keys.Up) )
+            {
+                if ( this.CurrentlyHoveredButton > 0 )
+                {
+                    CurrentlyHoveredButton--;
+                }
+            }
+            else if ( KS.IsKeyDown (Keys.Down) )
+            {
+                if ( this.CurrentlyHoveredButton < this.Buttons.Count - 1 )
+                {
+                    CurrentlyHoveredButton++;
+                }
+            }
+            else if ( KS.IsKeyDown (Keys.Enter) )
+            {
+                for (int i = 0; i < this.Buttons.Count; i++)
+                {
+                    if (this.CurrentlyHoveredButton == i)
+                    {
+                        this.Buttons[i].currentButtonState = ButtonState.Clicked;
+                    }
+                }
+            }
+
+            //Decide which button is being hovered
+            for ( int i = 0; i < this.Buttons.Count; i++ )
+            {
+
+                if ( this.CurrentlyHoveredButton == i && this.Buttons[i].currentButtonState != ButtonState.Clicked)
+                {
+                    this.Buttons[i].currentButtonState = ButtonState.Hovered;
+                }
+                else if ( this.Buttons[i].currentButtonState == ButtonState.Hovered )
+                {
+                    this.Buttons[i].currentButtonState = ButtonState.None;
+                }
+            }
+        }
+
+        public void Dispose ( )
+        {
+
         }
     }
 }
