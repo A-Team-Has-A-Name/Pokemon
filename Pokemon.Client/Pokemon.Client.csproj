@@ -63,7 +63,10 @@
     <Compile Include="Interfaces\IMovable.cs" />
     <Compile Include="Interfaces\IUnit.cs" />
     <Compile Include="Interfaces\IUpdatable.cs" />
+    <Compile Include="Interfaces\IWindowQueuer.cs" />
     <Compile Include="Screens\GameScreenManager.cs" />
+    <Compile Include="Screens\LogInScreen.cs" />
+    <Compile Include="Screens\RegisterScreen.cs" />
     <Compile Include="Screens\StartUpScreen.cs" />
     <Compile Include="Screens\WorldScreen.cs" />
     <Compile Include="Startup.cs" />
@@ -71,6 +74,8 @@
     <Compile Include="Textures\TextureLoader.cs" />
     <Compile Include="UI Elements\Button.cs" />
     <Compile Include="UI Elements\Text.cs" />
+    <Compile Include="UI Elements\Windows\Window.cs" />
+    <Compile Include="UI Elements\Windows\WindowHandler.cs" />
     <Compile Include="User\User.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -87,13 +92,18 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Sprites\Button.png" />
+    <Content Include="Content\Sprites\MenuBG.png" />
     <Content Include="Content\Sprites\Pokemon_100x100.png" />
     <Content Include="Content\Sprites\RedTrainer_96x96.png" />
+    <Content Include="Content\Sprites\textBox.png" />
+    <Content Include="Content\Sprites\TheOnePixel.png" />
     <Content Include="Content\Sprites\WorldBackground_1180x860.png" />
+    <Content Include="Content\Windows\ChatWindow_30x30.png" />
     <Content Include="Icon.ico" />
   </ItemGroup>
   <ItemGroup>
@@ -115,6 +125,7 @@
       <Name>Pokemon.Models</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

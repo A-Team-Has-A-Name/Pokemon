@@ -10,6 +10,7 @@
     using Microsoft.Xna.Framework.Input;
     using Screens;
     using Textures;
+    using UI_Elements.Windows;
 
     public class Game1 : Game
     {
@@ -17,7 +18,6 @@
         SpriteBatch spriteBatch;
         Trainer trainer;
         GameScreenManager screenManager;
-        
 
         public Game1()
         {

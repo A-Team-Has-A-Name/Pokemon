@@ -1,4 +1,7 @@
 ﻿
+using System;
+using System.Runtime.CompilerServices;
+
 namespace Pokemon.Client.Core.Engines
 {
     using Microsoft.Xna.Framework;
@@ -14,9 +17,6 @@ namespace Pokemon.Client.Core.Engines
 
     public static class StartUpEngine
     {
-        private static List<IUpdatable> updatableObjects = new List<IUpdatable> ( );
-        private static List<Interfaces.IDrawable> drawableObjects = new List<IDrawable> ( );
-
         private static List<Button> buttons = new List<Button>();
 
         public static List<Button> Buttons
@@ -24,22 +24,6 @@ namespace Pokemon.Client.Core.Engines
             get
             {
                 return StartUpEngine.buttons;
-            }
-        }
-
-        public static List<Interfaces.IDrawable> DrawableObjects
-        {
-            get
-            {
-                return StartUpEngine.drawableObjects;
-            }
-        }
-
-        public static List<IUpdatable> UpdatableObjects
-        {
-            get
-            {
-                return StartUpEngine.updatableObjects;
             }
         }
 
@@ -56,8 +40,8 @@ namespace Pokemon.Client.Core.Engines
             Button LogInButton = new Button
             {
                 SpriteSheet = TextureLoader.ButtonSheet,
-                DefaultSpriteColour = Color.Blue,
-                HoverSpriteColour = Color.Red,
+                DefaultSpriteColour = Color.White,
+                HoverSpriteColour = Color.Orange,
                 Text = LogInText,
                 DefaultTextColour = Color.Black,
                 HoverTextColour = Color.White
@@ -65,28 +49,80 @@ namespace Pokemon.Client.Core.Engines
 
             buttons.Add(LogInButton);
 
-        }
-
-        public static void InitializeUpdatableObjects ( ContentManager contentManager )
-        {
-            foreach (var button in buttons)
-            {
-                updatableObjects.Add (button);
-            }
-            
             //Register
+
+            Text RegisterText = new Text
+            {
+                Color = Color.Black,
+                Message = "Register",
+                SpriteFont = contentManager.Load<SpriteFont> ("Fonts/Arial")
+            };
+
+            Button RegisterButton = new Button
+            {
+                SpriteSheet = TextureLoader.ButtonSheet,
+                DefaultSpriteColour = Color.White,
+                HoverSpriteColour = Color.Orange,
+                Text = RegisterText,
+                DefaultTextColour = Color.Black,
+                HoverTextColour = Color.White
+            };
+
+            buttons.Add (RegisterButton);
+
             //Exit
+
+            Text ExitText = new Text
+            {
+                Color = Color.Black,
+                Message = "Exit",
+                SpriteFont = contentManager.Load<SpriteFont> ("Fonts/Arial")
+            };
+
+            Button ExitButton = new Button
+            {
+                SpriteSheet = TextureLoader.ButtonSheet,
+                DefaultSpriteColour = Color.White,
+                HoverSpriteColour = Color.Orange,
+                Text = ExitText,
+                DefaultTextColour = Color.Black,
+                HoverTextColour = Color.White
+            };
+
+            ExitButton.OnClicked += Exit;
+            
+            buttons.Add (ExitButton);
+
+
+            //Play
+
+            Text PlayText = new Text
+            {
+                Color = Color.Black,
+                Message = "Play",
+                SpriteFont = contentManager.Load<SpriteFont> ("Fonts/Arial")
+            };
+
+            Button PlayButton = new Button
+            {
+                SpriteSheet = TextureLoader.ButtonSheet,
+                DefaultSpriteColour = Color.White,
+                HoverSpriteColour = Color.Orange,
+                Text = PlayText,
+                DefaultTextColour = Color.Black,
+                HoverTextColour = Color.White
+            };
+
+            buttons.Add (PlayButton);
+
+
         }
 
-        public static void InitializeDrawableObjects ( ContentManager contentManager )
+        public static void Exit()
         {
-            foreach (var button  in buttons)
-            {
-                    drawableObjects.Add (button);
-            }
-            
-            //Register
-            //Exit 
+            System.Environment.Exit(0);
         }
+
+        
     }
 }

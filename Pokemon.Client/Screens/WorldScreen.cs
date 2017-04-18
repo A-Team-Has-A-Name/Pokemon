@@ -1,6 +1,4 @@
-﻿using Pokemon.Client.Core.Engines;
-
-namespace Pokemon.Client.Screens
+﻿namespace Pokemon.Client.Screens
 {
     using System;
     using Microsoft.Xna.Framework;
@@ -12,13 +10,15 @@ namespace Pokemon.Client.Screens
     using Content;
     using Core.Engines;
     using Textures;
+    using UI_Elements.Windows;
 
     public class WorldScreen : IGameScreen
     {
         private bool exitGame;
 
         private readonly GameScreenManager screenManager;
-
+        public Window window;
+        public WindowHandler windowHandler;
         public bool IsPaused { get; private set; }
 
         public WorldScreen(GameScreenManager screenManager)
@@ -31,8 +31,9 @@ namespace Pokemon.Client.Screens
             WorldEngine.PopulateWildPokemon();
             WorldEngine.InitializeDrawableObjects();
             WorldEngine.InitializeUpdatableObjects();
+            windowHandler = WorldEngine.WindowHandler;
         }
-    
+
         public void Pause()
         {
             IsPaused = true;
@@ -45,13 +46,16 @@ namespace Pokemon.Client.Screens
 
         public void Update(GameTime gameTime)
         {
+
             foreach (var p in WorldEngine.WildPokemon)
             {
+
                 //TODO: fix collision bug - too far away but returns true
                 if (Collision.CheckForCollisionBetweenCollidables(SessionEngine.Trainer, p))
                 {
                     p.IsEncountered = true;
                     SessionEngine.Trainer.IsSurprised = true;
+
                 }
             }
 
@@ -59,6 +63,8 @@ namespace Pokemon.Client.Screens
             {
                 u.Update(gameTime);
             }
+
+            windowHandler.Update(gameTime);
         }
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -67,8 +73,12 @@ namespace Pokemon.Client.Screens
 
             foreach (Interfaces.IDrawable d in WorldEngine.DrawableObjects)
             {
-                d.Draw(spriteBatch);
+                d.Draw(spriteBatch);                
             }
+
+            //Debug
+            windowHandler?.Draw(spriteBatch);
+
         }
 
         public void HandleInput(GameTime gameTime)
@@ -80,11 +90,15 @@ namespace Pokemon.Client.Screens
                 exitGame = true;
             }
 
+            if (keyboard.IsKeyDown(Keys.B))
+            {
+                screenManager.PopScreen();
+            }
         }
 
         public void Dispose()
         {
-           
+
         }
     }
 }

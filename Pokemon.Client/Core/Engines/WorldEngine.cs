@@ -7,10 +7,12 @@
     using PokemonDB.Data.Store;
     using Textures;
     using Microsoft.Xna.Framework.Graphics;
+    using UI_Elements.Windows;
 
     //Engine for the World Screen
     public static class WorldEngine
     {
+        public static WindowHandler WindowHandler = new WindowHandler();
         public static Texture2D background = TextureLoader.WorldBackground;
         private static List<IUpdatable> updatableObjects = new List<IUpdatable>();
         private static List<Interfaces.IDrawable> drawableObjects = new List<Interfaces.IDrawable>();
@@ -37,22 +39,24 @@
 
         public static void InitializeUpdatableObjects()
         {
+            updatableObjects.Add(SessionEngine.Trainer);      
+                  
             foreach (var p in WorldEngine.WildPokemon)
             {
                 updatableObjects.Add(p);
             }
 
-            updatableObjects.Add(SessionEngine.Trainer);            
         }
 
         public static void InitializeDrawableObjects()
         {
+            drawableObjects.Add(SessionEngine.Trainer);
+
             foreach (var p in WorldEngine.WildPokemon)
             {
                 drawableObjects.Add(p);
             }
 
-            drawableObjects.Add(SessionEngine.Trainer);
         }
 
         public static void PopulateWildPokemon()
