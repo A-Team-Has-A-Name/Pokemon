@@ -9,6 +9,7 @@
     using Microsoft.Xna.Framework.Graphics;
     using UI_Elements.Windows;
     using UI_Elements.Notifications;
+    using System;
 
     //Engine for the World Screen
     public static class WorldEngine
@@ -19,6 +20,7 @@
         private static List<IUpdatable> updatableObjects = new List<IUpdatable>();
         private static List<Interfaces.IDrawable> drawableObjects = new List<Interfaces.IDrawable>();
         private static List<Pokemon> wildPokemon = new List<Pokemon>();
+        public static Pokemon PendingPokemonToRemove;
         public static List<Interfaces.IDrawable> DrawableObjects
         {
             get
@@ -73,6 +75,13 @@
                 var currentPokemon = new Pokemon(p);
                 WildPokemon.Add(currentPokemon);
             }
+        }
+
+        public static void RemovePendingPokemon()
+        {
+            WildPokemon.Remove(PendingPokemonToRemove);
+            UpdatableObjects.Remove(PendingPokemonToRemove);
+            DrawableObjects.Remove(PendingPokemonToRemove);
         }
     }
 }

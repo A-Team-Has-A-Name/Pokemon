@@ -9,20 +9,27 @@
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
     using Core.Engines;
+    using Message;
 
     public class WindowManager : IWindowQueuer
     {
-        private readonly Queue<Window> windows;
-        private Window currentWindow;
-
+        private readonly Queue<MessageWindow> windows;
+        private MessageWindow currentWindow;
+        private List<int> windowIds;
         public WindowManager()
         {
-            windows = new Queue<Window>();
+            windows = new Queue<MessageWindow>();
+            windowIds = new List<int>();
         }
 
-        public void QueueWindow(Window window)
+        public void QueueWindow(MessageWindow window)
         {
-            windows.Enqueue(window);
+            if (!windowIds.Contains(window.Id))
+            {
+                windows.Enqueue(window);
+                windowIds.Add(window.Id);
+            }
+
             ShowNextWindow();
         }
 
@@ -45,6 +52,7 @@
 
             if (currentWindow.IsDone)
             {
+                windowIds.Remove(currentWindow.Id);
                 currentWindow = null;
                 ShowNextWindow();
             }

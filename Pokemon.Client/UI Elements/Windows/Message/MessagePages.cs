@@ -35,7 +35,6 @@
             this.repeatedLoadingDots = 0;
             this.isLoading = isLoading;
         }
-
         public void Update(GameTime gameTime)
         {            
             if(index >= text.Length && !isLoading || index >= text.Length + loadDots.Length && isLoading)

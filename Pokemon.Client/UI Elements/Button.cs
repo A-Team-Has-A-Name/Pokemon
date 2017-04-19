@@ -1,5 +1,4 @@
-﻿
-namespace Pokemon.Client.UI_Elements
+﻿namespace Pokemon.Client.UI_Elements
 {
     using Microsoft.Xna.Framework.Graphics;
     using Microsoft.Xna.Framework.Input;

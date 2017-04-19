@@ -56,19 +56,16 @@
                 var currentPokemon = WorldEngine.WildPokemon[i];
                 if (Collision.CheckForCollisionBetweenCollidables(SessionEngine.Trainer, currentPokemon))
                 {
+                    WorldEngine.PendingPokemonToRemove = currentPokemon;
+
                     currentPokemon.IsEncountered = true;
                     SessionEngine.Trainer.IsSurprised = true;
                     bool pokemonIsCaught = Pokemon.IsCaught();
                     EncounteredPokemonMessageWindow((int)SessionEngine.Trainer.Y, currentPokemon.Name, pokemonIsCaught);
-
                     if (pokemonIsCaught)
                     {
                         SessionEngine.Trainer.CatchPokemon(currentPokemon);
                     }
-
-                    WorldEngine.WildPokemon.Remove(currentPokemon);
-                    WorldEngine.UpdatableObjects.Remove(currentPokemon);
-                    WorldEngine.DrawableObjects.Remove(currentPokemon);
                 }
             }
 
@@ -122,7 +119,7 @@
         public void EncounteredPokemonMessageWindow(int trainerY, string pokemonName, bool isCaught)
         {
             int y = getWindowY(trainerY);
-            var messageWindow = new MessageWindow(new Vector2(15, y), 1150, 200);
+            var messageWindow = new MessageWindow(new Vector2(15, y), 1150, 200, 1);
             messageWindow.AddPage($"Encountered a wild {pokemonName}!", false);
             messageWindow.AddPage("Attempting to catch ", true);
 

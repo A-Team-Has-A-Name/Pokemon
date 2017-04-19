@@ -10,7 +10,7 @@ namespace Pokemon.Client.UI_Elements
 {
     public class Notification : Text
     {
-        private const int messageDuration = 500;
+        private const int messageDuration = 100;
         private double timer;
         
         public Notification(string message, SpriteFont font, Color color) : base(message, font, new Vector2(15), color)

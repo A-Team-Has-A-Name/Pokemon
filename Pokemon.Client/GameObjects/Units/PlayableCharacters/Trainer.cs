@@ -102,6 +102,11 @@
             this.BoundingBoxY = (int)this.Y + 20;
         }
 
+        public void StopSurprise()
+        {
+            this.IsSurprised = false;
+        }
+
         //Animation
         protected override void ManageAnimation(GameTime gameTime)
         {

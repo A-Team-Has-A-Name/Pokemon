@@ -6,6 +6,7 @@
     using System.Text;
     using System;
     using Core.Engines;
+    using Core;
 
     public class MessageWindow : Window
     {
@@ -17,6 +18,8 @@
         private SpriteFont font;
         private double counter;
 
+        public int Id { get; set; }
+
         public MessageWindow(Vector2 position, int width, int height, string text) : base(position, width, height)
         {
             this.text = text;
@@ -25,10 +28,11 @@
             margin = new Vector2(30);
             font = SessionEngine.PokemonFont;
             CreatePages(font);
-
         }
-        public MessageWindow(Vector2 position, int width, int height) : base(position, width, height)
+
+        public MessageWindow(Vector2 position, int width, int height, int id) : base(position, width, height)
         {
+            this.Id = id;
             this.text = "";
             pages = new List<MessagePage>();
             pageIndex = 0;
@@ -96,7 +100,10 @@
                 if (this.counter > 500)
                 {
                     this.counter = 0.0;
-                    //this.IsDone = true;                
+                    this.IsDone = true;
+                    SessionEngine.Trainer.StopSurprise();
+                    WorldEngine.RemovePendingPokemon();
+                    return;             
                 }
             }
 
@@ -121,7 +128,7 @@
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            if (pages[pages.Count - 1].IsDone)
+            if (this.IsDone)
             {
                 return;
             }
