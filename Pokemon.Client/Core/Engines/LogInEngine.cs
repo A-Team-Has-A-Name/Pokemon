@@ -16,18 +16,14 @@ namespace Pokemon.Client.Core.Engines
     {
         private static List<InputForm> forms = new List<InputForm>();
 
-        public static List<InputForm> Forms 
+        public static List<InputForm> Forms
         {
-            get
-            {
-                return LogInEngine.forms;
-            }
+            get { return LogInEngine.forms; }
+            set { forms = value; }
         }
 
         public static void GenerateForms ( ContentManager contentManager )
         {
-
-
             //Username FORM
             Text usernameText = new Text
             {

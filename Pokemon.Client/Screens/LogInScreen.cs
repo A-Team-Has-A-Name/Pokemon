@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using Pokemon.Client.Core.Engines;
 using Pokemon.Client.Interfaces;
 using Pokemon.Client.Textures;
@@ -52,12 +53,20 @@ namespace Pokemon.Client.Screens
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw (TextureLoader.MenuBackgorund, Vector2.Zero, new Rectangle (0, 0, SessionEngine.WindowWidth,SessionEngine.WindowHeight), Color.White);
+            spriteBatch.Draw (TextureLoader.StartUpBackground,new Rectangle(0,0,SessionEngine.WindowWidth,SessionEngine.WindowHeight), new Rectangle (0,0, 1920,1080), Color.White);
+            //spriteBatch.Draw (TextureLoader.MenuBackgorund, Vector2.Zero, new Rectangle (0, 0, SessionEngine.WindowWidth,SessionEngine.WindowHeight), Color.White);
             inputManager.Draw(spriteBatch);
         }
 
         public void HandleInput(GameTime gameTime)
         {
+            KeyboardState KS = Keyboard.GetState ( );
+            if ( KS.IsKeyDown (Keys.Escape) )
+            {
+                LogInEngine.Forms = new List<InputForm>();
+                screenManager.PopScreen ( );
+            }
+
             inputManager.HandleInput(gameTime,screenManager);
         }
 

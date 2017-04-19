@@ -94,6 +94,7 @@ namespace Pokemon.Client.UI_Elements.InputForms
             if ( RegisterSuccessful)
             {
                 SessionEngine.User = new User.User (UM);
+                UserStore.UpdateUser (UM.Username);
                 screenManager.ChangeScreen (new ChooseTrainerScreen (screenManager));
             }
             else
@@ -125,7 +126,7 @@ namespace Pokemon.Client.UI_Elements.InputForms
                     break;
             }
 
-            float baseInputFormFrameXPosition = ( SessionEngine.WindowWidth - TextureLoader.TextBoxWidthScaled ) / 2;
+            float baseInputFormFrameXPosition = ( SessionEngine.WindowWidth - TextureLoader.TextBoxWidthScaled ) / 5;
             float baseInputFormFrameYPosition = ( SessionEngine.WindowHeight - TextureLoader.TextBoxHeigthScaled * ( this.forms.Count + 1 ) ) / 2;
             Vector2 baseInputFormFramePosition = new Vector2 (baseInputFormFrameXPosition, baseInputFormFrameYPosition);
 

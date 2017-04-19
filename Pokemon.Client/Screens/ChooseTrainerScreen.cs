@@ -10,7 +10,9 @@ using Microsoft.Xna.Framework.Input;
 using Pokemon.Client.Content;
 using Pokemon.Client.Core;
 using Pokemon.Client.Core.Engines;
+using Pokemon.Client.GameObjects.Units.PlayableCharacters;
 using Pokemon.Client.Interfaces;
+using Pokemon.Client.Textures;
 using Pokemon.Client.UI_Elements.Windows;
 
 namespace Pokemon.Client.Screens
@@ -22,6 +24,11 @@ namespace Pokemon.Client.Screens
         private readonly GameScreenManager screenManager;
         public Window window;
         public WindowHandler windowHandler;
+
+        private List<Trainer> trainers { get; set; }
+
+        public int currentlyHoveredTrainer { get; set; }
+
         public bool IsPaused { get; private set; }
 
         public ChooseTrainerScreen ( GameScreenManager screenManager )
@@ -52,7 +59,8 @@ namespace Pokemon.Client.Screens
 
         public void Draw ( GameTime gameTime, SpriteBatch spriteBatch )
         {
-            
+            //spriteBatch.Draw (TextureLoader.TrainerMenuBackground,new Vector2(0,0), new Rectangle (1920 - SessionEngine.WindowWidth, 1080 - SessionEngine.WindowHeight, SessionEngine.WindowWidth,SessionEngine.WindowHeight), Color.White);
+            spriteBatch.Draw (TextureLoader.TrainerMenuBackground,new Rectangle(0,0,SessionEngine.WindowWidth,SessionEngine.WindowHeight), new Rectangle (0,0, 1920,1080), Color.White);
 
         }
 

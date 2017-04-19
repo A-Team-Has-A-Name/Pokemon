@@ -23,6 +23,7 @@ namespace Pokemon.Client.Core.Engines
             {
                 return RegisterEngine.forms;
             }
+            set { forms = value; }
         }
 
         public static void GenerateForms ( ContentManager contentManager )

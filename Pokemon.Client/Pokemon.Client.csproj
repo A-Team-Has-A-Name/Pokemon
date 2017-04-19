@@ -43,6 +43,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Core\Collision.cs" />
+    <Compile Include="Core\Engines\ChooseTrainerEngine.cs" />
     <Compile Include="Core\Engines\LogInEngine.cs" />
     <Compile Include="Core\Engines\RegisterEngine.cs" />
     <Compile Include="Core\Engines\SessionEngine.cs" />
@@ -103,9 +104,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Songs\MainTheme.mp3" />
+    <Content Include="Content\Sprites\bird_Background.jpg" />
     <Content Include="Content\Sprites\Button.png" />
     <Content Include="Content\Sprites\MenuBG.png" />
     <Content Include="Content\Sprites\Pokemon_100x100.png" />
+    <Content Include="Content\Sprites\Raichu_Background.jpg" />
     <Content Include="Content\Sprites\RedTrainer_96x96.png" />
     <Content Include="Content\Sprites\textBox.png" />
     <Content Include="Content\Sprites\TheOnePixel.png" />
@@ -119,7 +123,9 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="app.manifest" />
-    <None Include="Content\Fonts\Arial.spritefont" />
+    <None Include="Content\Fonts\Arial_15.spritefont" />
+    <None Include="Content\Fonts\Arial_20.spritefont" />
+    <None Include="Content\Fonts\Arial_25.spritefont" />
     <None Include="Content\Fonts\PokemonFont.spritefont" />
     <None Include="Content\Fonts\PokemonFont_10.spritefont" />
     <None Include="Content\Fonts\PokemonFont_15.spritefont" />

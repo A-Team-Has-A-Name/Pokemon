@@ -33,7 +33,7 @@ namespace Pokemon.Client.Core.Engines
             {
                 Color = Color.Black,
                 Message = "Log In",
-                SpriteFont = contentManager.Load<SpriteFont> ("Fonts/Arial")
+                SpriteFont = contentManager.Load<SpriteFont> ("Fonts/Arial_20")
             };
 
             //Log in
@@ -55,7 +55,7 @@ namespace Pokemon.Client.Core.Engines
             {
                 Color = Color.Black,
                 Message = "Register",
-                SpriteFont = contentManager.Load<SpriteFont> ("Fonts/Arial")
+                SpriteFont = contentManager.Load<SpriteFont> ("Fonts/Arial_20")
             };
 
             Button RegisterButton = new Button
@@ -76,7 +76,7 @@ namespace Pokemon.Client.Core.Engines
             {
                 Color = Color.Black,
                 Message = "Exit",
-                SpriteFont = contentManager.Load<SpriteFont> ("Fonts/Arial")
+                SpriteFont = contentManager.Load<SpriteFont> ("Fonts/Arial_20")
             };
 
             Button ExitButton = new Button
@@ -100,7 +100,7 @@ namespace Pokemon.Client.Core.Engines
             {
                 Color = Color.Black,
                 Message = "Play",
-                SpriteFont = contentManager.Load<SpriteFont> ("Fonts/Arial")
+                SpriteFont = contentManager.Load<SpriteFont> ("Fonts/Arial_20")
             };
 
             Button PlayButton = new Button
