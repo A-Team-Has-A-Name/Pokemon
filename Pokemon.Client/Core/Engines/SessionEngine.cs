@@ -4,11 +4,14 @@
     using Interfaces;
     using Microsoft.Xna.Framework;
     using Pokemon.Client.GameObjects.Units.PlayableCharacters;
+    using Pokemon.Client.GameObjects.Units.NonPlayableCharacters;
     using Models;
     using Microsoft.Xna.Framework.Graphics;
     using Microsoft.Xna.Framework.Content;
+    using System.Collections.Generic;
+    using PokemonDB.Data.Store;
 
-    //Info shared between screens
+    //Info shared between screens, rename to MainEngine?
     public static class SessionEngine
     {
         public const int WindowHeight = 860;
@@ -19,6 +22,7 @@
         public static void Load(ContentManager content)
         {
             PokemonFont = content.Load<SpriteFont>("Fonts/PokemonFont");
+
         }
 
         public static Trainer Trainer
@@ -31,17 +35,18 @@
 
         public static void InitializeTrainer()
         {
-            var model = new TrainerModel()
-            {
-                Name = "Pesho"
-            };
-
-            SessionEngine.currentTrainer = new Trainer(model);
+            SessionEngine.currentTrainer = new Trainer(TrainerStore.GetTrainerById(1));
         }
 
         public static void Update(GameTime gameTime)
         {
 
+        }
+
+        public static void SaveGame()
+        {
+            PokemonStore.UpdatePokemon(SessionEngine.Trainer.GetCaughtPokemonModels());
+            TrainerStore.UpdateTrainer(SessionEngine.Trainer.GetCurrentModelState());
         }
 
     }

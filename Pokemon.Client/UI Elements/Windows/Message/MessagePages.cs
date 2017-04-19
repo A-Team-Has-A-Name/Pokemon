@@ -71,6 +71,7 @@
             if(loadDotsIndex >= loadDots.Length && repeatedLoadingDots == repeatLoadingDots)
             {
                 isLoading = false;
+                IsDone = true;
                 return;
             }
 

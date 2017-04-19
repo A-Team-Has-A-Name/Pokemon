@@ -76,11 +76,13 @@
     <Compile Include="UI Elements\Button.cs" />
     <Compile Include="UI Elements\InputForms\InputForm.cs" />
     <Compile Include="UI Elements\InputForms\InputFormManager.cs" />
-    <Compile Include="UI Elements\Text.cs" />
+    <Compile Include="UI Elements\Notifications\Notification.cs" />
+    <Compile Include="UI Elements\Notifications\NotificationManager.cs" />
+    <Compile Include="UI Elements\Notifications\Text.cs" />
     <Compile Include="UI Elements\Windows\Message\MessagePages.cs" />
     <Compile Include="UI Elements\Windows\Message\WindowMessage.cs" />
     <Compile Include="UI Elements\Windows\Window.cs" />
-    <Compile Include="UI Elements\Windows\WindowHandler.cs" />
+    <Compile Include="UI Elements\Windows\WindowManager.cs" />
     <Compile Include="User\User.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -14,8 +14,13 @@
         private const int pokemonSpriteWidth = 100;
         private static Random random = new Random();
         private string nickname;
+        private PokemonModel model;    
+
         public Pokemon(PokemonModel model)
-        { 
+        {
+            this.model = model;
+            this.Id = model.Id;
+            this.TrainerId = model.TrainerId;
             this.SpriteSheet = TextureLoader.PokemonSheet;
             this.TextureHeight = pokemonSpriteHeight;
             this.TextureWidth = pokemonSpriteWidth;
@@ -52,6 +57,7 @@
             return n == 1;
         }
 
+        public int Id { get; set; }
         public string Name { get; set; }
         public string Nickname
         {
@@ -75,8 +81,7 @@
         public Rectangle FrameRect { get; set; }
         public bool IsHidden { get; set; }
         public bool IsEncountered { get; set; }
-
-
+        public int? TrainerId { get; set; }
 
         public void Update(GameTime gameTime)
         {
@@ -125,5 +130,10 @@
             this.Health -= damage;
         }
 
+        public PokemonModel GetCurrentModelState()
+        {
+            this.model.TrainerId = this.TrainerId;
+            return this.model;
+        }
     }
 }

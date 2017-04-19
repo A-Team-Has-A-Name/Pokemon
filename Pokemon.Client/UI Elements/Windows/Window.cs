@@ -14,10 +14,9 @@
         public readonly Vector2 Position;
         public int CurrentHeight;
         public int CurrentWidth;
-        public bool IsDone;
         public int Width;
         public int Height;
-
+        public bool IsDone { get; set; }
         public Window(Vector2 position, int width, int height)
         {
             this.Position = position;

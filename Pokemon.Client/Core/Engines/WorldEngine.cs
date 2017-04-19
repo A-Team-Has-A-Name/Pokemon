@@ -8,11 +8,13 @@
     using Textures;
     using Microsoft.Xna.Framework.Graphics;
     using UI_Elements.Windows;
+    using UI_Elements.Notifications;
 
     //Engine for the World Screen
     public static class WorldEngine
     {
-        public static WindowHandler WindowHandler = new WindowHandler();
+        public static WindowManager WindowManager = new WindowManager();
+        public static NotificationManager NotificationManager = new NotificationManager();
         public static Texture2D background = TextureLoader.WorldBackground;
         private static List<IUpdatable> updatableObjects = new List<IUpdatable>();
         private static List<Interfaces.IDrawable> drawableObjects = new List<Interfaces.IDrawable>();
@@ -24,6 +26,7 @@
                 return WorldEngine.drawableObjects;
             }
         }
+
         public static List<IUpdatable> UpdatableObjects
         {
             get
