@@ -15,6 +15,7 @@
         private List<MessagePage> pages;
         private int pageIndex;
         private SpriteFont font;
+        private double counter;
 
         public MessageWindow(Vector2 position, int width, int height, string text) : base(position, width, height)
         {
@@ -24,8 +25,19 @@
             margin = new Vector2(30);
             font = SessionEngine.PokemonFont;
             CreatePages(font);
+
         }
-         
+        public MessageWindow(Vector2 position, int width, int height) : base(position, width, height)
+        {
+            this.text = "";
+            pages = new List<MessagePage>();
+            pageIndex = 0;
+            margin = new Vector2(30);
+            font = SessionEngine.PokemonFont;
+            this.counter = 0.0;
+        }
+
+
         public void CreatePages(SpriteFont font)
         {
             var words = text.Split(' ');
@@ -44,7 +56,7 @@
                     rowText.Remove(oldRowLength, rowText.Length - oldRowLength);
                     if(rowIndex == MaxNumberRows - 1)
                     {
-                        pages.Add(new MessagePage(rowText.ToString(), Position + margin, font));
+                        pages.Add(new MessagePage(rowText.ToString(), Position + margin, font, false));
                         rowText.Clear();
                         rowIndex = 0;
                     }
@@ -61,9 +73,14 @@
 
             if(rowText.Length > 0)
             {
-                pages.Add(new MessagePage(rowText.ToString(), Position + margin, font));
-
+                pages.Add(new MessagePage(rowText.ToString(), Position + margin, font, false));
             }
+        }
+        
+        public void AddPage(string text, bool isLoading)
+        {
+            pages.Add(new MessagePage(text, this.Position + this.margin, this.font, isLoading));
+
         }
 
         public override void Update(GameTime gameTime)
@@ -74,6 +91,18 @@
                 if (IsDone)
                 {
                     return;
+                }
+                if (this.pages[this.pageIndex].IsDone)
+                {
+                    if (this.pageIndex < this.pages.Count - 1)
+                    {
+                        this.counter += gameTime.ElapsedGameTime.TotalMilliseconds;
+                        if (this.counter > 500)
+                        {
+                            this.counter = 0.0;
+                            this.pageIndex++;
+                        }
+                    }
                 }
                 pages[pageIndex].Update(gameTime);
             }

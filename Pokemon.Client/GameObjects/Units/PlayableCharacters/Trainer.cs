@@ -56,13 +56,6 @@
             if (IsSurprised)
             {
                 this.IsMoving = false;
-                int yWindow = 650;
-
-                if(this.Y > SessionEngine.WindowHeight / 2)
-                {
-                    yWindow = 15;
-                } 
-                windowHandler.QueueWindow(new MessageWindow(new Vector2(15, yWindow), 1150, 200, "Encountered Pokemon!"));
             }
 
             this.ManageAnimation(gameTime);
@@ -71,6 +64,7 @@
 
         }
 
+        //Draw
         public override void Draw(SpriteBatch spriteBatch)
         {
             if (IsSurprised)
@@ -155,7 +149,6 @@
 
         public void GetSurprised(SpriteBatch spriteBatch)
         {
-            //get coordinates of surprised sprite
             int x = 0;
             int y = 4 * this.TextureHeight;
             int width = 37;

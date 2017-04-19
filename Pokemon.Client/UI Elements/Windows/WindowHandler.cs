@@ -8,6 +8,7 @@
     using System.Linq;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
+    using Core.Engines;
 
     public class WindowHandler : IWindowQueuer
     {
@@ -36,7 +37,7 @@
 
         public void Update(GameTime gameTime)
         {
-            if(currentWindow == null)
+            if (currentWindow == null)
             {
                 return;
             }
@@ -47,11 +48,15 @@
                 currentWindow = null;
                 ShowNextWindow();
             }
-
+           
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
+            if (SessionEngine.Trainer.IsSurprised)
+            {
+                var i = 0;
+            }
             currentWindow?.Draw(spriteBatch);
         }
     }
