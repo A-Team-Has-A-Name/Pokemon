@@ -11,13 +11,14 @@
     using Core.Engines;
     using Textures;
     using UI_Elements.Windows;
+    using UI_Elements.Windows.Message;
+    using GameObjects.Units.NonPlayableCharacters;
 
     public class WorldScreen : IGameScreen
     {
         private bool exitGame;
 
         private readonly GameScreenManager screenManager;
-        public Window window;
         public WindowHandler windowHandler;
         public bool IsPaused { get; private set; }
 
@@ -55,7 +56,7 @@
                 {
                     p.IsEncountered = true;
                     SessionEngine.Trainer.IsSurprised = true;
-
+                    EncounteredPokemonMessageWindow((int)SessionEngine.Trainer.Y, p.Name);
                 }
             }
 
@@ -94,6 +95,37 @@
             {
                 screenManager.PopScreen();
             }
+        }
+
+        //Windows
+        public void EncounteredPokemonMessageWindow(int trainerY, string pokemonName)
+        {
+            int y = getWindowY(trainerY);
+            var messageWindow = new MessageWindow(new Vector2(15, y), 1150, 200);
+            messageWindow.AddPage($"Encountered a wild {pokemonName}!", false);
+            messageWindow.AddPage("Attempting to catch ", true);
+
+            if (Pokemon.IsCaught())
+            {
+                messageWindow.AddPage($"Successfully caught {pokemonName}.", false);
+            }
+            else
+            {
+                messageWindow.AddPage("The pokemon ran away.", false);
+            }
+
+            windowHandler.QueueWindow(messageWindow);           
+        }
+
+        private int getWindowY(int trainerY)
+        {
+            int yWindow = 650;
+
+            if (trainerY > SessionEngine.WindowHeight / 2)
+            {
+                yWindow = 15;
+            }
+            return yWindow;
         }
 
         public void Dispose()

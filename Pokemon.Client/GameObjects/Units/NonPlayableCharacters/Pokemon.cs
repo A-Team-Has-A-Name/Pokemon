@@ -46,6 +46,12 @@
             this.IsDefeated = false;
         }
 
+        public static bool IsCaught()
+        {
+            int n = random.Next(0, 2);
+            return n == 1;
+        }
+
         public string Name { get; set; }
         public string Nickname
         {
@@ -69,6 +75,7 @@
         public Rectangle FrameRect { get; set; }
         public bool IsHidden { get; set; }
         public bool IsEncountered { get; set; }
+
 
 
         public void Update(GameTime gameTime)
