@@ -23,7 +23,7 @@ namespace Pokemon.Client.Screens
 
         private readonly GameScreenManager screenManager;
         public Window window;
-        public WindowHandler windowHandler;
+        public WindowManager windowManager;
 
         private List<Trainer> trainers { get; set; }
 
