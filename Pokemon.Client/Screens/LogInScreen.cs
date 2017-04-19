@@ -10,6 +10,8 @@ using Pokemon.Client.Core.Engines;
 using Pokemon.Client.Interfaces;
 using Pokemon.Client.Textures;
 using Pokemon.Client.UI_Elements.InputForms;
+using Pokemon.Models;
+using PokemonDB.Data.Store;
 
 namespace Pokemon.Client.Screens
 {
@@ -35,10 +37,13 @@ namespace Pokemon.Client.Screens
         {
             inputManager = new InputFormManager();
             inputManager.ErrorDuration = 5000;
+            inputManager.OnExecution += inputManager.LogInExecution;
             inputManager.ErrorMessage = "Login data is incorrect!";
             inputManager.spriteFont = content.Load<SpriteFont>("Fonts/PokemonFont_15");
             inputManager.InitializeForms(content,FormType.LogIn);
         }
+
+       
 
         public void Update(GameTime gameTime)
         {

@@ -6,6 +6,7 @@ using Pokemon.Client.Screens;
 using Pokemon.Client.Textures;
 using Pokemon.Data;
 using Pokemon.Models;
+using PokemonDB.Data.Store;
 
 namespace Pokemon.Client.UI_Elements.InputForms
 {
@@ -46,16 +47,69 @@ namespace Pokemon.Client.UI_Elements.InputForms
 
         private int currentlyHoveredForm { get; set; }
 
-        private Action onExecution;
+        private Action<GameScreenManager> onExecution;
 
-        internal event Action OnExecution
+        public void LogInExecution (GameScreenManager screenManager)
+        {
+
+            bool LogInSuccessful = false;
+
+            string username = this.forms[0].TextString;
+            string password = forms[1].TextString;
+
+
+            UserModel UM = UserStore.GetUserByLoginData (username, password);
+            if ( UM != null )
+            {
+                LogInSuccessful = true;
+            }
+
+            if ( LogInSuccessful )
+            {
+                SessionEngine.User = new User.User (UM);
+                UserStore.UpdateUser(UM.Username);
+                screenManager.ChangeScreen (new ChooseTrainerScreen (screenManager));
+            }
+            else
+            {
+                errorIsDisplayed = true;
+            }
+        }
+
+        public void RegisterExecution(GameScreenManager screenManager)
+        {
+            bool RegisterSuccessful = false;
+
+            string username = this.forms[0].TextString;
+            string password = forms[1].TextString;
+            string email = forms[2].TextString;
+
+
+            UserModel UM = UserStore.RegisterUser(username, password, email);
+            if ( UM != null )
+            {
+                RegisterSuccessful = true;
+            }
+
+            if ( RegisterSuccessful)
+            {
+                SessionEngine.User = new User.User (UM);
+                screenManager.ChangeScreen (new ChooseTrainerScreen (screenManager));
+            }
+            else
+            {
+                errorIsDisplayed = true;
+            }
+        }
+
+        internal event Action<GameScreenManager> OnExecution
         {
             add { onExecution += value; }
             remove { onExecution -= value; }
         }
         public void InitializeForms ( ContentManager contentManager, FormType type )
         {
-            oldKeyboardState = currentKeyboardState = Keyboard.GetState();
+            oldKeyboardState = currentKeyboardState = Keyboard.GetState ( );
 
             currentlyHoveredForm = 0;
             switch ( type )
@@ -66,8 +120,8 @@ namespace Pokemon.Client.UI_Elements.InputForms
 
                     break;
                 case FormType.Register:
-                    //TODO
-
+                    RegisterEngine.GenerateForms(contentManager);
+                    forms = RegisterEngine.Forms;
                     break;
             }
 
@@ -82,13 +136,13 @@ namespace Pokemon.Client.UI_Elements.InputForms
                 {
                     this.forms[i].isHovered = true;
                 }
-                Vector2 currentFormPosition = new Vector2 (0, i * (TextureLoader.TextBoxHeigthScaled + 50));
+                Vector2 currentFormPosition = new Vector2 (0, i * ( TextureLoader.TextBoxHeigthScaled + 50 ));
                 this.forms[i].Position = baseInputFormsFramePosition + currentFormPosition;
             }
 
         }
 
-        public void ErrorMassageLogic(GameTime gameTime)
+        public void ErrorMassageLogic ( GameTime gameTime )
         {
             this.ErrorElapsedTime += gameTime.ElapsedGameTime.Milliseconds;
 
@@ -97,7 +151,7 @@ namespace Pokemon.Client.UI_Elements.InputForms
                 errorIsDisplayed = false;
                 ErrorElapsedTime = 0;
             }
-            else if (errorIsDisplayed)
+            else if ( errorIsDisplayed )
             {
                 errorIsDisplayed = true;
 
@@ -109,11 +163,11 @@ namespace Pokemon.Client.UI_Elements.InputForms
 
         public void Update ( GameTime gameTime )
         {
-            ErrorMassageLogic(gameTime);
+            ErrorMassageLogic (gameTime);
 
-            foreach (var form in this.forms)
+            foreach ( var form in this.forms )
             {
-                form.Update(gameTime);
+                form.Update (gameTime);
             }
 
             for ( int i = 0; i < forms.Count; i++ )
@@ -137,60 +191,28 @@ namespace Pokemon.Client.UI_Elements.InputForms
                 form.Draw (spriteBatch);
             }
 
-            if (errorIsDisplayed)
+            if ( errorIsDisplayed )
             {
                 int ErrorBoxPositionX = 30;
                 int ErrorBoxPositionY = 30;
 
-                spriteBatch.Draw(TextureLoader.TheOnePixel,new Rectangle(ErrorBoxPositionX,ErrorBoxPositionY,SessionEngine.WindowWidth - 200,40),new Rectangle(0,0,1,1),Color.Red  );
-                Vector2 textPosition = new Vector2(ErrorBoxPositionX,ErrorBoxPositionY) + new Vector2(10,8);
-                spriteBatch.DrawString(spriteFont,ErrorMessage,textPosition,Color.Black);
+                spriteBatch.Draw (TextureLoader.TheOnePixel, new Rectangle (ErrorBoxPositionX, ErrorBoxPositionY, SessionEngine.WindowWidth - 200, 40), new Rectangle (0, 0, 1, 1), Color.Red);
+                Vector2 textPosition = new Vector2 (ErrorBoxPositionX, ErrorBoxPositionY) + new Vector2 (10, 8);
+                spriteBatch.DrawString (spriteFont, ErrorMessage, textPosition, Color.Black);
             }
 
         }
 
-        public void HandleInput ( GameTime gameTime,GameScreenManager screenManager )
+        public void HandleInput ( GameTime gameTime, GameScreenManager screenManager )
         {
             oldKeyboardState = currentKeyboardState;
             currentKeyboardState = Keyboard.GetState ( );
-            
-            if ( currentKeyboardState.IsKeyDown (Keys.Enter) && oldKeyboardState.IsKeyUp(Keys.Enter) )
+
+            if ( currentKeyboardState.IsKeyDown (Keys.Enter) && oldKeyboardState.IsKeyUp (Keys.Enter) )
             {
-                bool LogInSuccessful = false;
-
-                string username = forms[0].TextString;
-                string password = forms[1].TextString;
-
-                using (var context = new PokemonContext())
-                {
-                    UserModel UM = context.Users.Where(u => u.Username == username).ToList().FirstOrDefault();
-                    if (UM != null)
-                    {
-                        if (UM.Password == password)
-                        {
-                            LogInSuccessful = true;
-                        }
-                    }
-
-                    if (LogInSuccessful)
-                    {
-                        UM.LastOnlineDate = DateTime.Now;
-
-                        SessionEngine.User = new User.User(UM);
-                        context.SaveChanges();
-
-                        screenManager.ChangeScreen(new ChooseTrainerScreen(screenManager));
-                    }
-                    else
-                    {
-                        errorIsDisplayed = true;
-                    }
-                }
-
-                
-
+                onExecution (screenManager);
             }
-            else if ( currentKeyboardState.IsKeyDown (Keys.Tab) && oldKeyboardState.IsKeyUp(Keys.Tab) )
+            else if ( currentKeyboardState.IsKeyDown (Keys.Tab) && oldKeyboardState.IsKeyUp (Keys.Tab) )
             {
                 if ( currentlyHoveredForm < forms.Count - 1 )
                 {
@@ -208,11 +230,11 @@ namespace Pokemon.Client.UI_Elements.InputForms
                 //TODO: Go back to menu screen. PopScreen ?
             }
 
-            for (int i = 0; i < forms.Count; i++)
+            for ( int i = 0; i < forms.Count; i++ )
             {
-                if (currentlyHoveredForm == i)
+                if ( currentlyHoveredForm == i )
                 {
-                    forms[i].HandleInput(gameTime);
+                    forms[i].HandleInput (gameTime);
                 }
             }
         }

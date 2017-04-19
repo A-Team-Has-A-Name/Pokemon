@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="Core\Collision.cs" />
     <Compile Include="Core\Engines\LogInEngine.cs" />
+    <Compile Include="Core\Engines\RegisterEngine.cs" />
     <Compile Include="Core\Engines\SessionEngine.cs" />
     <Compile Include="Core\Engines\StartUpEngine.cs" />
     <Compile Include="Core\Engines\WorldEngine.cs" />

@@ -50,42 +50,42 @@ namespace Pokemon.Client.UI_Elements.InputForms
             this.TextString = string.Empty;
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw ( SpriteBatch spriteBatch )
         {
 
             double scaleForm = TextureLoader.TextBoxScale;
-            Rectangle targetRectangle = new Rectangle((int) this.Position.X, (int) this.Position.Y,
+            Rectangle targetRectangle = new Rectangle (( int ) this.Position.X, ( int ) this.Position.Y,
                 TextureLoader.TextBoxWidth, TextureLoader.TextBoxHeigth);
-            targetRectangle.Width = (int) (targetRectangle.Width*scaleForm);
-            targetRectangle.Height = (int) (targetRectangle.Height*scaleForm);
+            targetRectangle.Width = ( int ) ( targetRectangle.Width * scaleForm );
+            targetRectangle.Height = ( int ) ( targetRectangle.Height * scaleForm );
 
-            if (isHovered)
+            if ( isHovered )
             {
-                spriteBatch.Draw(this.SpriteSheet, targetRectangle,
-                    new Rectangle(0, 0, TextureLoader.TextBoxWidth, TextureLoader.TextBoxHeigth), HoverSpriteColour);
+                spriteBatch.Draw (this.SpriteSheet, targetRectangle,
+                    new Rectangle (0, 0, TextureLoader.TextBoxWidth, TextureLoader.TextBoxHeigth), HoverSpriteColour);
             }
             else
             {
-                spriteBatch.Draw(this.SpriteSheet, targetRectangle,
-                    new Rectangle(0, 0, TextureLoader.TextBoxWidth, TextureLoader.TextBoxHeigth), DefaultSpriteColour);
+                spriteBatch.Draw (this.SpriteSheet, targetRectangle,
+                    new Rectangle (0, 0, TextureLoader.TextBoxWidth, TextureLoader.TextBoxHeigth), DefaultSpriteColour);
             }
 
-            
 
 
-            DescriptionOfField.Position = this.Position + new Vector2(0, -40f);
-            DescriptionOfField.Draw(spriteBatch);
+
+            DescriptionOfField.Position = this.Position + new Vector2 (0, -40f);
+            DescriptionOfField.Draw (spriteBatch);
 
             string textToShow = TextString;
-            if (isSecured)
+            if ( isSecured )
             {
-                textToShow = new string('*', TextString.Length);
+                textToShow = new string ('*', TextString.Length);
             }
 
-            
 
-            Vector2 formTextPosition = new Vector2(20, 25) + this.Position;
-            spriteBatch.DrawString(this.textFont, textToShow, formTextPosition, Color.Black);
+
+            Vector2 formTextPosition = new Vector2 (20, 25) + this.Position;
+            spriteBatch.DrawString (this.textFont, textToShow, formTextPosition, Color.Black);
             //scaling spriteBatch.DrawString(DescriptionOfField.SpriteFont, textToShow, formTextPosition, Color.Black, 0f,Vector2.One, new Vector2(5, 5), SpriteEffects.None, 0f);
         }
 
@@ -100,6 +100,13 @@ namespace Pokemon.Client.UI_Elements.InputForms
 
             Keys[] pressedKeys;
             pressedKeys = currentKeyboardState.GetPressedKeys ( );
+            bool monkeysign = (pressedKeys.Contains(Keys.LeftShift) || pressedKeys.Contains (Keys.RightShift) ) && pressedKeys.Contains(Keys.D2);
+            if (monkeysign && oldKeyboardState.IsKeyUp(Keys.D2) && !isSecured)
+            {
+                TextString = TextString.Insert (TextString.Length, "@");
+                return;
+            }
+           
 
             foreach ( Keys key in pressedKeys )
             {
@@ -109,9 +116,19 @@ namespace Pokemon.Client.UI_Elements.InputForms
                     {
                         TextString = TextString.Remove (TextString.Length - 1, 1);
                     }
+
                     else if ( key == Keys.Space )
                     {
                         TextString = TextString.Insert (TextString.Length, " ");
+                    }
+                    else if (key == Keys.OemPeriod)
+                    {
+                        TextString = TextString.Insert (TextString.Length, ".");
+                    }
+                    else if ( key == Keys.D0 || key == Keys.D1 || key == Keys.D2 || key == Keys.D3 || key == Keys.D4 || key == Keys.D5 || key == Keys.D6 || key == Keys.D7 || key == Keys.D8 || key == Keys.D9 )
+                    {
+                        TextString = TextString.Insert (TextString.Length, key.ToString());
+                        TextString = TextString.Remove(TextString.Length - 2,1);
                     }
                     else
                     {

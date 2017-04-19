@@ -1,0 +1,67 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Text;
+using System.Threading.Tasks;
+using Pokemon.Data;
+using Pokemon.Models;
+
+namespace PokemonDB.Data.Store
+{
+    public static class UserStore
+    {
+        private static UserModel getUserByUsername(string username,PokemonContext context)
+        {
+            UserModel UM = context.Users.Where (u => u.Username == username).ToList ( ).FirstOrDefault ( );
+            return UM;
+        }
+
+
+        public static UserModel GetUserByLoginData ( string Username, string Password )
+        {
+            using ( var context = new PokemonContext ( ) )
+            {
+                UserModel UM = context.Users.Where (u => u.Username == Username && u.Password == Password).Include("Trainers").ToList ( ).FirstOrDefault ( );
+                return UM;
+            }
+        }
+
+        public static void UpdateUser(string username)
+        {
+            using (var context = new PokemonContext())
+            {
+                UserModel UM = getUserByUsername (username, context);
+                UM.LastOnlineDate = DateTime.Now;
+                context.SaveChanges();
+            }
+        }
+
+        public static UserModel RegisterUser(string username, string password, string email)
+        {
+            using ( var context = new PokemonContext ( ) )
+            {
+                UserModel UM = getUserByUsername(username,context);
+
+                if (UM == null)
+                {
+                    UserModel user = new UserModel();
+                    user.LastOnlineDate = DateTime.Now;
+                    user.Password = password;
+                    user.Username = username;
+                    user.Email = email;
+                    user.RegistrationDate = DateTime.Now;
+
+                    context.Users.Add(user);
+                    context.SaveChanges();
+                    return user;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+    }
+}

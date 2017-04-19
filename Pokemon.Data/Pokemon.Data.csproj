@@ -61,6 +61,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Store\PokemonStore.cs" />
     <Compile Include="Store\TrainerStore.cs" />
+    <Compile Include="Store\UserStore.cs" />
     <Compile Include="Utils.cs" />
   </ItemGroup>
   <ItemGroup>

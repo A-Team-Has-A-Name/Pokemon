@@ -23,6 +23,7 @@ namespace Pokemon.Client.User
         public List<Trainer> Trainers { get; set; }
 
         private string Password { get; set; }
+
         public User(string username,string password)
         {
             this.Username = username;
