@@ -3,6 +3,8 @@ using System;
 using System.Runtime.CompilerServices;
 using Pokemon.Client.GameObjects.Units.PlayableCharacters;
 using Pokemon.Client.UI_Elements.InputForms;
+using Pokemon.Models;
+using PokemonDB.Data.Store;
 
 namespace Pokemon.Client.Core.Engines
 {
@@ -50,14 +52,42 @@ namespace Pokemon.Client.Core.Engines
         public static void GenerateTrainers ( ContentManager contentManager )
         {
             User.User User = SessionEngine.User;
+            ChooseTrainerEngine.trainers = new List<Trainer> ( );
+            ICollection<TrainerModel> tr = TrainerStore.GetUserTrainers (User.Id);
+            foreach ( var trainer in tr )
+            {
 
-            trainers = User.Trainers;
-            //TODO Get trainer from user
+                ChooseTrainerEngine.trainers.Add (new Trainer (trainer));
+            }
+            SessionEngine.User.Trainers = ChooseTrainerEngine.trainers;
 
         }
 
         public static void GenerateButtons ( ContentManager contentManager )
         {
+            ChooseTrainerEngine.buttons = new List<Button> ( );
+
+
+
+            //Log out
+            Text LogOutText = new Text
+            {
+                Color = Color.Black,
+                Message = "Log Out",
+                SpriteFont = contentManager.Load<SpriteFont> ("Fonts/Arial_20")
+            };
+            Button logOutButton = new Button
+            {
+                SpriteSheet = TextureLoader.ButtonSheet,
+                DefaultSpriteColour = Color.White,
+                HoverSpriteColour = Color.Orange,
+                Text = LogOutText,
+                DefaultTextColour = Color.Black,
+                HoverTextColour = Color.White
+            };
+
+            buttons.Add (logOutButton);
+
             int numberOfTrainers = SessionEngine.User.Trainers.Count;
 
             for ( int i = 0; i < numberOfTrainers; i++ )
@@ -84,14 +114,15 @@ namespace Pokemon.Client.Core.Engines
                 buttons.Add (button);
             }
 
+
+
+            //Create
             Text CreateTrainer = new Text
             {
                 Color = Color.Black,
                 Message = "Create",
                 SpriteFont = contentManager.Load<SpriteFont> ("Fonts/Arial_20")
             };
-
-            //Log in
             Button createButton = new Button
             {
                 SpriteSheet = TextureLoader.ButtonSheet,
@@ -102,13 +133,14 @@ namespace Pokemon.Client.Core.Engines
                 HoverTextColour = Color.White
             };
 
-            buttons.Add(createButton);
+            buttons.Add (createButton);
 
         }
 
         public static void GenerateForms ( ContentManager contentManager )
         {
             //Username FORM
+            ChooseTrainerEngine.forms = new List<InputForm> ( );
             Text nameText = new Text
             {
                 Color = Color.Black,
@@ -128,7 +160,7 @@ namespace Pokemon.Client.Core.Engines
 
             forms.Add (nameForm);
 
-            
+
         }
         public static void Exit ( )
         {

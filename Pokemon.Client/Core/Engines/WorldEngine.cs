@@ -42,6 +42,7 @@
 
         public static void InitializeUpdatableObjects()
         {
+            updatableObjects = new List<IUpdatable>();
             updatableObjects.Add(SessionEngine.Trainer);      
                   
             foreach (var p in WorldEngine.WildPokemon)
@@ -53,6 +54,7 @@
 
         public static void InitializeDrawableObjects()
         {
+            drawableObjects = new List<IDrawable>();
             drawableObjects.Add(SessionEngine.Trainer);
 
             foreach (var p in WorldEngine.WildPokemon)

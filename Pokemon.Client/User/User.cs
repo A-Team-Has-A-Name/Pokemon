@@ -1,7 +1,9 @@
 ﻿using System.Threading;
 using Microsoft.Xna.Framework;
+using Pokemon.Client.Core.Engines;
 using Pokemon.Client.GameObjects.Units.PlayableCharacters;
 using Pokemon.Models;
+using PokemonDB.Data.Store;
 
 namespace Pokemon.Client.User
 {
@@ -22,7 +24,10 @@ namespace Pokemon.Client.User
 
         public List<Trainer> Trainers { get; set; }
 
+        public int Id { get; set; }
+
         private string Password { get; set; }
+
 
         public User(string username,string password)
         {
@@ -32,13 +37,15 @@ namespace Pokemon.Client.User
 
         public User(UserModel model)
         {
+            this.Id = model.Id;
             this.Username = model.Username;
             this.RegistrationDate = model.RegistrationDate;
             this.LastOnlineDate = model.LastOnlineDate;
 
             //Transition all the TrainerModel objects into Trainer objects.
             var tempTrainers = new List<Trainer>();
-            foreach (var trainer in model.Trainers)
+            var trainers = TrainerStore.GetUserTrainers(model.Id);
+            foreach (var trainer in trainers)
             {
                 //TODO : The Vector2() should be the save point from last login
                 Trainer T = new Trainer(trainer);

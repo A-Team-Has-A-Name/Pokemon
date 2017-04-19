@@ -17,6 +17,7 @@ using Pokemon.Client.UI_Elements;
 using Pokemon.Client.UI_Elements.InputForms;
 using Pokemon.Client.UI_Elements.Windows;
 using Pokemon.Models;
+using PokemonDB.Data.Store;
 using ButtonState = Pokemon.Client.UI_Elements.ButtonState;
 
 namespace Pokemon.Client.Screens
@@ -51,6 +52,8 @@ namespace Pokemon.Client.Screens
         public bool IsPaused { get; private set; }
 
         private ContentManager contentManager { get; set; }
+
+
 
         public ChooseTrainerScreen ( GameScreenManager screenManager )
         {
@@ -87,43 +90,45 @@ namespace Pokemon.Client.Screens
             nameInputFormManager.isHidden = false;
         }
 
-        public void Initialize ( ContentManager content )
+        public void LogOut ( )
         {
-            this.nameInputFormManager = new InputFormManager ( );
-            nameInputFormManager.ErrorDuration = 5000;
-            nameInputFormManager.isHidden = true;
-            nameInputFormManager.OnExecution += nameInputFormManager.CreateTrainer;
-            nameInputFormManager.ErrorMessage = "You already have a trainer with this name!";
-            nameInputFormManager.spriteFont = content.Load<SpriteFont> ("Fonts/PokemonFont_15");
-            nameInputFormManager.InitializeForms (content, FormType.ChooseTrainer);
+            SessionEngine.User = new User.User (new UserModel ( ));
+            screenManager.PopScreen ( );
+            screenManager.PushScreen (new StartUpScreen (screenManager));
 
-            currentKeyboardState = oldKeyboardState = Keyboard.GetState ( );
+        }
 
-            this.contentManager = content;
+        public void RefreshData ( ContentManager content )
+        {
+
             //Generate the buttons
             CurrentlyHoveredTrainerPackage = 0;
-            ChooseTrainerEngine.GenerateButtons (content);
             ChooseTrainerEngine.GenerateTrainers (content);
+            ChooseTrainerEngine.GenerateButtons (content); ;
+
             TrainerPackages = new List<TrainerPackage> ( );
+
+            //connect buttons and trainers
+            TrainerPackages.Add (new TrainerPackage { button = ChooseTrainerEngine.Buttons[0], trainer = new Trainer (new TrainerModel ( )) });
             for ( int i = 0; i < ChooseTrainerEngine.Trainers.Count; i++ )
             {
-                TrainerPackages.Add (new TrainerPackage { button = ChooseTrainerEngine.Buttons[i], trainer = ChooseTrainerEngine.Trainers[i] });
+                TrainerPackages.Add (new TrainerPackage { button = ChooseTrainerEngine.Buttons[i + 1], trainer = ChooseTrainerEngine.Trainers[i] });
             }
-
+            //create button doesnt have a trainer
             TrainerPackages.Add (new TrainerPackage { button = ChooseTrainerEngine.Buttons[ChooseTrainerEngine.Buttons.Count - 1], trainer = new Trainer (new TrainerModel ( )) });
 
             //Center buttons
             float baseTrainerPackageFrameXPosition = ( SessionEngine.WindowWidth - TextureLoader.ButtonTextureWidth ) / 5;
-            float baseTrainerPackageFrameYPosition = ( SessionEngine.WindowHeight - TextureLoader.ButtonTextureHeight * ( this.TrainerPackages.Count + 1 ) ) / 2;
+            float baseTrainerPackageFrameYPosition = ( SessionEngine.WindowHeight - TextureLoader.ButtonTextureHeight * ( this.TrainerPackages.Count ) ) / 2;
             Vector2 baseTrainerPackageFramePosition = new Vector2 (baseTrainerPackageFrameXPosition, baseTrainerPackageFrameYPosition);
 
             //Attach the functions to the buttons
-            for ( int i = 0; i < TrainerPackages.Count - 1; i++ )
+            TrainerPackages[0].button.OnClicked += LogOut;
+            for ( int i = 1; i < TrainerPackages.Count - 1; i++ )
             {
                 TrainerPackages[i].button.OnClicked += ChangeToWorldScreen;
             }
-
-            TrainerPackages[TrainerPackages.Count - 1].button.OnClicked += ShowNameCreationForm;
+            TrainerPackages[TrainerPackages.Count - 1].button.OnClicked += ShowNameCreationForm; ;
 
             //Initiallize first button to be hovered and set positions 
             for ( int i = 0; i < this.TrainerPackages.Count; i++ )
@@ -132,18 +137,96 @@ namespace Pokemon.Client.Screens
                 {
                     this.TrainerPackages[i].button.currentButtonState = ButtonState.Hovered;
                 }
+
                 Vector2 currentTrainerPackagePosition = new Vector2 (0, i * TextureLoader.ButtonTextureHeight);
                 this.TrainerPackages[i].button.Position = baseTrainerPackageFramePosition + currentTrainerPackagePosition;
             }
+
+            nameInputFormManager.InitializeForms (content, FormType.ChooseTrainer);
+
+        }
+
+        public void Initialize ( ContentManager content )
+        {
+            currentKeyboardState = oldKeyboardState = Keyboard.GetState ( );
+
+            this.contentManager = content;
+            //Generate the buttons
+            CurrentlyHoveredTrainerPackage = 0;
+            ChooseTrainerEngine.GenerateTrainers (content);
+            ChooseTrainerEngine.GenerateButtons (content);
+
+            TrainerPackages = new List<TrainerPackage> ( );
+            //connect buttons and trainers
+
+            TrainerPackages.Add (new TrainerPackage { button = ChooseTrainerEngine.Buttons[0], trainer = new Trainer (new TrainerModel ( )) });
+            for ( int i = 0; i < ChooseTrainerEngine.Trainers.Count; i++ )
+            {
+                TrainerPackages.Add (new TrainerPackage { button = ChooseTrainerEngine.Buttons[i + 1], trainer = ChooseTrainerEngine.Trainers[i] });
+            }
+            //create button doesnt have a trainer
+            TrainerPackages.Add (new TrainerPackage { button = ChooseTrainerEngine.Buttons[ChooseTrainerEngine.Buttons.Count - 1], trainer = new Trainer (new TrainerModel ( )) });
+
+            //Center buttons
+            float baseTrainerPackageFrameXPosition = ( SessionEngine.WindowWidth - TextureLoader.ButtonTextureWidth ) / 5;
+            float baseTrainerPackageFrameYPosition = ( SessionEngine.WindowHeight - TextureLoader.ButtonTextureHeight * ( this.TrainerPackages.Count ) ) / 2;
+            Vector2 baseTrainerPackageFramePosition = new Vector2 (baseTrainerPackageFrameXPosition, baseTrainerPackageFrameYPosition);
+
+            //Attach the functions to the buttons
+            TrainerPackages[0].button.OnClicked += LogOut;
+            for ( int i = 1; i < TrainerPackages.Count - 1; i++ )
+            {
+                TrainerPackages[i].button.OnClicked += ChangeToWorldScreen;
+            }
+            TrainerPackages[TrainerPackages.Count - 1].button.OnClicked += ShowNameCreationForm;
+
+
+            //Initiallize first button to be hovered and set positions 
+            for ( int i = 0; i < this.TrainerPackages.Count; i++ )
+            {
+                if ( this.CurrentlyHoveredTrainerPackage == i )
+                {
+                    this.TrainerPackages[i].button.currentButtonState = ButtonState.Hovered;
+                }
+
+                Vector2 currentTrainerPackagePosition = new Vector2 (0, i * TextureLoader.ButtonTextureHeight);
+                this.TrainerPackages[i].button.Position = baseTrainerPackageFramePosition + currentTrainerPackagePosition;
+            }
+            // Is writing
+
+
+            this.nameInputFormManager = new InputFormManager ( );
+
+            int NameInputFrameXPosition = SessionEngine.WindowWidth - 350;
+            int NameInputFrameYPosition = SessionEngine.WindowHeight - 100;
+            nameInputFormManager.setFramePosition (NameInputFrameXPosition, NameInputFrameYPosition);
+
+            nameInputFormManager.ErrorDuration = 5000;
+            nameInputFormManager.isHidden = true;
+            nameInputFormManager.OnExecution += nameInputFormManager.CreateTrainer;
+            nameInputFormManager.ErrorMessage = "You already have a trainer with this name!";
+            nameInputFormManager.spriteFont = content.Load<SpriteFont> ("Fonts/PokemonFont_15");
+            nameInputFormManager.InitializeForms (content, FormType.ChooseTrainer);
+
+            nameInputFormManager.currentlyHoveredForm = CurrentlyHoveredTrainerPackage - TrainerPackages.Count - 1;
+
         }
 
         public void Update ( GameTime gameTime )
         {
-            nameInputFormManager.Update (gameTime);
+
             foreach ( var TrainerPackage in this.TrainerPackages )
             {
                 TrainerPackage.button.Update (gameTime);
             }
+
+            if ( this.nameInputFormManager.trainedWasCreated )
+            {
+
+                this.RefreshData (contentManager);
+                nameInputFormManager.trainedWasCreated = false;
+            }
+            nameInputFormManager.Update (gameTime);
         }
 
         public void Draw ( GameTime gameTime, SpriteBatch spriteBatch )
@@ -162,18 +245,15 @@ namespace Pokemon.Client.Screens
 
         public void HandleInput ( GameTime gameTime )
         {
+
+            nameInputFormManager.currentlyHoveredForm = CurrentlyHoveredTrainerPackage - TrainerPackages.Count + 1;
+
+
+
             nameInputFormManager.HandleInput (gameTime, screenManager);
 
             oldKeyboardState = currentKeyboardState;
             currentKeyboardState = Keyboard.GetState ( );
-
-            /*For debugging purposes - quick access to WorldScreen
-            if ( KS.IsKeyDown (Keys.W) )
-            {
-                screenManager.ChangeBetweenScreens (new WorldScreen (screenManager));
-            }
-            */
-
 
             //Handle UP/Down browsing of the buttons
 
@@ -191,6 +271,15 @@ namespace Pokemon.Client.Screens
                     CurrentlyHoveredTrainerPackage++;
                 }
             }
+            else if ( currentKeyboardState.IsKeyDown (Keys.D) && oldKeyboardState.IsKeyUp (Keys.D) )
+            {
+                if ( CurrentlyHoveredTrainerPackage != 0 && CurrentlyHoveredTrainerPackage != TrainerPackages.Count - 1 )
+                {
+                    int trainerToRemoveId = TrainerPackages[CurrentlyHoveredTrainerPackage].trainer.Id;
+                    TrainerStore.DeleteTrainer(trainerToRemoveId);
+                    RefreshData(contentManager);
+                }
+            }
             else if ( currentKeyboardState.IsKeyDown (Keys.Enter) && oldKeyboardState.IsKeyUp (Keys.Enter) )
             {
                 for ( int i = 0; i < this.TrainerPackages.Count; i++ )
@@ -198,6 +287,7 @@ namespace Pokemon.Client.Screens
                     if ( this.CurrentlyHoveredTrainerPackage == i )
                     {
                         this.TrainerPackages[i].button.currentButtonState = ButtonState.Clicked;
+                        SessionEngine.Trainer = TrainerPackages[i].trainer;
                     }
                 }
             }

@@ -49,7 +49,7 @@
 
             this.CaughtPokemon = new List<Pokemon>();
 
-             AddPokemon(model.CaughtPokemon);
+             //AddPokemon(model.CaughtPokemon);
         }
 
         public int Id { get; set; }

@@ -44,11 +44,13 @@ namespace Pokemon.Client.UI_Elements.InputForms
 
         public string ErrorMessage { get; set; }
 
+        private Vector2 baseInputFormFramePosition { get; set; }
+
         private KeyboardState currentKeyboardState;
 
         private KeyboardState oldKeyboardState;
 
-        private int currentlyHoveredForm { get; set; }
+        public int currentlyHoveredForm { get; set; }
 
         private Action<GameScreenManager> onExecution;
 
@@ -106,31 +108,29 @@ namespace Pokemon.Client.UI_Elements.InputForms
             }
         }
 
+        public bool trainedWasCreated { get; set; }
+
         public void CreateTrainer ( GameScreenManager screenManager )
         {
             bool CreationSuccessful = false;
 
             string name = this.forms[0].TextString;
 
-
-            //TODO
-            /*TrainerModel UM = TrainerStore.RegisterUser (username, password, email);
-            if ( UM != null )
+            if (SessionEngine.User.Trainers.Select(tr => tr.Name).Contains(name))
             {
-                CreationSuccessful = true;
+                return;
             }
 
-            if ( CreationSuccessful )
-            {
-                SessionEngine.User = new User.User (UM);
-                UserStore.UpdateUser (UM.Username);
-                screenManager.ChangeScreen (new ChooseTrainerScreen (screenManager));
-            }
-            else
-            {
-                errorIsDisplayed = true;
-            }
-            */
+            int id = SessionEngine.User.Id;
+
+            TrainerStore.RegisterTrainer(name, id);
+
+            CreationSuccessful = true;
+
+            SessionEngine.User = new User.User(UserStore.GetUserById(SessionEngine.User.Id));
+
+            trainedWasCreated = true;
+
         }
 
         internal event Action<GameScreenManager> OnExecution
@@ -138,8 +138,12 @@ namespace Pokemon.Client.UI_Elements.InputForms
             add { onExecution += value; }
             remove { onExecution -= value; }
         }
+
         public void InitializeForms ( ContentManager contentManager, FormType type )
         {
+            forms = new List<InputForm>();
+            trainedWasCreated = false;
+
             oldKeyboardState = currentKeyboardState = Keyboard.GetState ( );
 
             currentlyHoveredForm = 0;
@@ -160,11 +164,8 @@ namespace Pokemon.Client.UI_Elements.InputForms
                     break;
             }
 
-            float baseInputFormFrameXPosition = ( SessionEngine.WindowWidth - TextureLoader.TextBoxWidthScaled ) / 5;
-            float baseInputFormFrameYPosition = ( SessionEngine.WindowHeight - TextureLoader.TextBoxHeigthScaled * ( this.forms.Count + 1 ) ) / 2;
-            Vector2 baseInputFormFramePosition = new Vector2 (baseInputFormFrameXPosition, baseInputFormFrameYPosition);
 
-            // ??? Vector2 baseInputFormsFramePosition = new Vector2 (200);
+           
             for ( int i = 0; i < forms.Count; i++ )
             {
                 if ( currentlyHoveredForm == i )
@@ -175,6 +176,18 @@ namespace Pokemon.Client.UI_Elements.InputForms
                 this.forms[i].Position = baseInputFormFramePosition + currentFormPosition;
             }
 
+        }
+
+        public void setFramePosition(float X,float Y)
+        {
+            float baseInputFormFrameXPosition = ( SessionEngine.WindowWidth - TextureLoader.TextBoxWidthScaled ) / X;
+            float baseInputFormFrameYPosition = ( SessionEngine.WindowHeight - TextureLoader.TextBoxHeigthScaled * ( this.forms.Count + 1) ) / (int)Y;
+            baseInputFormFramePosition = new Vector2 (baseInputFormFrameXPosition, baseInputFormFrameYPosition);
+        }
+
+        public void setFramePosition ( int X, int Y )
+        {
+            baseInputFormFramePosition = new Vector2 (X, Y);
         }
 
         public void ErrorMassageLogic ( GameTime gameTime )

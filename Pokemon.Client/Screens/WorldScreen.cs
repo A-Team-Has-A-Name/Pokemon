@@ -111,6 +111,7 @@
 
             if (keyboard.IsKeyDown(Keys.Escape))
             {
+                this.screenManager.PopScreen();
                 exitGame = true;
             }
 

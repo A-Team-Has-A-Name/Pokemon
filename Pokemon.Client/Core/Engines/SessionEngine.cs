@@ -33,6 +33,7 @@
             {
                 return SessionEngine.currentTrainer;
             }
+            set { currentTrainer = value; }
         }
 
         public static void InitializeTrainer()

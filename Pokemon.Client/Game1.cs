@@ -72,7 +72,7 @@ namespace Pokemon.Client
 
             screenManager.HandleInput(gameTime);
             screenManager.Update(gameTime);
-          
+            
             base.Update(gameTime);
         }
 
