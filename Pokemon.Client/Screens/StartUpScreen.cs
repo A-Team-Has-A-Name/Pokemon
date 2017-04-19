@@ -15,6 +15,10 @@ namespace Pokemon.Client.Screens
 
     public class StartUpScreen : IGameScreen
     {
+        private KeyboardState currentKeyboardState;
+
+        private KeyboardState oldKeyboardState;
+
         private readonly GameScreenManager screenManager;
 
         private int CurrentlyHoveredButton { get; set; }
@@ -58,13 +62,15 @@ namespace Pokemon.Client.Screens
         }
         public void Initialize(ContentManager content)
         {
+            currentKeyboardState = oldKeyboardState = Keyboard.GetState();
+
             //Generate the buttons
             CurrentlyHoveredButton = 0;
             StartUpEngine.GenerateButtons(content);
             this.Buttons = StartUpEngine.Buttons;
 
             //Center buttons
-            float baseButtonFrameXPosition = (SessionEngine.WindowWidth - TextureLoader.ButtonTextureWidth) / 2;
+            float baseButtonFrameXPosition = (SessionEngine.WindowWidth - TextureLoader.ButtonTextureWidth) / 5;
             float baseButtonFrameYPosition = (SessionEngine.WindowHeight - TextureLoader.ButtonTextureHeight * (this.Buttons.Count + 1)) / 2;
             Vector2 baseButtonFramePosition = new Vector2(baseButtonFrameXPosition, baseButtonFrameYPosition);
 
@@ -95,7 +101,9 @@ namespace Pokemon.Client.Screens
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(TextureLoader.MenuBackgorund, Vector2.Zero, new Rectangle(0, 0, SessionEngine.WindowWidth, SessionEngine.WindowHeight), Color.White);
+            //spriteBatch.Draw(TextureLoader.MenuBackgorund, Vector2.Zero, new Rectangle(0, 0, SessionEngine.WindowWidth, SessionEngine.WindowHeight), Color.White);
+
+            spriteBatch.Draw (TextureLoader.StartUpBackground,new Rectangle(0,0,SessionEngine.WindowWidth,SessionEngine.WindowHeight), new Rectangle (0,0, 1920,1080), Color.White);
             foreach (var button in this.Buttons)
             {
                 button.Draw(spriteBatch);
@@ -104,7 +112,8 @@ namespace Pokemon.Client.Screens
 
         public void HandleInput(GameTime gameTime)
         {
-            KeyboardState KS = Keyboard.GetState();
+            oldKeyboardState = currentKeyboardState;
+            currentKeyboardState = Keyboard.GetState();
 
             /*For debugging purposes - quick access to WorldScreen
             if ( KS.IsKeyDown (Keys.W) )
@@ -116,21 +125,21 @@ namespace Pokemon.Client.Screens
 
             //Handle UP/Down browsing of the buttons
 
-            if (KS.IsKeyDown(Keys.Up))
+            if (currentKeyboardState.IsKeyDown(Keys.Up) && oldKeyboardState.IsKeyUp(Keys.Up))
             {
                 if (this.CurrentlyHoveredButton > 0)
                 {
                     CurrentlyHoveredButton--;
                 }
             }
-            else if (KS.IsKeyDown(Keys.Down))
+            else if ( currentKeyboardState.IsKeyDown (Keys.Down) && oldKeyboardState.IsKeyUp (Keys.Down) )
             {
                 if (this.CurrentlyHoveredButton < this.Buttons.Count - 1)
                 {
                     CurrentlyHoveredButton++;
                 }
             }
-            else if (KS.IsKeyDown(Keys.Enter))
+            else if ( currentKeyboardState.IsKeyDown (Keys.Enter) && oldKeyboardState.IsKeyUp (Keys.Enter) )
             {
                 for (int i = 0; i < this.Buttons.Count; i++)
                 {

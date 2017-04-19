@@ -1,4 +1,5 @@
-﻿using Pokemon.Client.Core.Engines;
+﻿using Microsoft.Xna.Framework.Media;
+using Pokemon.Client.Core.Engines;
 
 namespace Pokemon.Client.Textures
 {
@@ -13,8 +14,12 @@ namespace Pokemon.Client.Textures
         public static Texture2D TextBoxSheet { get; private set; }
         public static Texture2D WorldBackground { get; private set; }
         public static Texture2D MenuBackgorund { get; private set; }
+        public static Texture2D TrainerMenuBackground { get; private set; }
+        public static Texture2D StartUpBackground { get; private set; }
 
         public static Texture2D ChatWindowBackground { get; private set; }
+        // # not a song
+        public static Song mainTheme { get; private set; }
 
         //For debugging -  drawing the bounding boxes
         public static Texture2D TheOnePixel { get; private set; }
@@ -25,10 +30,12 @@ namespace Pokemon.Client.Textures
         public static int TextBoxHeigth = 195;
         public static int MenuBackgorundWidth = SessionEngine.WindowWidth;
         public static int MenuBackgorundHeigth = SessionEngine.WindowHeight;
-        public static double TextBoxScale = 0.5;
+        public static double TextBoxScale = 0.4;
         public static int TextBoxWidthScaled = (int)(798 * TextBoxScale);
         public static int TextBoxHeigthScaled = (int)(195 * TextBoxScale);
-
+   
+        
+    
 
         public static void Load(ContentManager content)
         {
@@ -40,6 +47,9 @@ namespace Pokemon.Client.Textures
             WorldBackground = content.Load<Texture2D>("Sprites/WorldBackground_1180x860");
             ChatWindowBackground = content.Load<Texture2D>("Windows/ChatWindow_30x30");
             TheOnePixel = content.Load<Texture2D>("Sprites/TheOnePixel");
+            TrainerMenuBackground = content.Load<Texture2D>("Sprites/Raichu_Background");
+            StartUpBackground = content.Load<Texture2D>("Sprites/bird_Background");
+            mainTheme = content.Load<Song>("Songs/MainTheme");
         }
     }
 }

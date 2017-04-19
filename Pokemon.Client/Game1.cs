@@ -1,4 +1,6 @@
-﻿namespace Pokemon.Client
+﻿using Microsoft.Xna.Framework.Media;
+
+namespace Pokemon.Client
 {
     using Core;
     using Core.Engines;
@@ -18,7 +20,7 @@
         SpriteBatch spriteBatch;
         Trainer trainer;
         GameScreenManager screenManager;
-
+        private Song mainTheme { get; set; }
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -38,6 +40,9 @@
             SessionEngine.InitializeTrainer();
             trainer = SessionEngine.Trainer;
             screenManager.ChangeScreen(new StartUpScreen(screenManager));
+            mainTheme = TextureLoader.mainTheme;
+            MediaPlayer.Play(mainTheme);
+            MediaPlayer.IsRepeating = true;
         }
 
         protected override void LoadContent()
