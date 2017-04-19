@@ -34,6 +34,7 @@
         protected override void Initialize()
         {            
             base.Initialize();
+            SessionEngine.Load(this.Content);
             SessionEngine.InitializeTrainer();
             trainer = SessionEngine.Trainer;
             screenManager.ChangeScreen(new StartUpScreen(screenManager));

@@ -11,6 +11,7 @@
     using Core;
     using System;
     using Core.Engines;
+    using UI_Elements.Windows.Message;
 
     public class Trainer : Unit
     {
@@ -61,8 +62,7 @@
                 {
                     yWindow = 15;
                 } 
-
-                windowHandler.QueueWindow(new Window(new Vector2(15, yWindow), 1150, 200));
+                windowHandler.QueueWindow(new MessageWindow(new Vector2(15, yWindow), 1150, 200, "Encountered Pokemon!"));
             }
 
             this.ManageAnimation(gameTime);

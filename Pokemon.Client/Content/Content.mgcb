@@ -116,3 +116,10 @@
 /processorParam:TextureFormat=Color
 /build:Sprites/TheOnePixel.png
 
+#begin Fonts/PokemonFont.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Fonts/PokemonFont.spritefont
+

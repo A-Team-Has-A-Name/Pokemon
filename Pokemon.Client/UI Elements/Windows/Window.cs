@@ -6,7 +6,7 @@
     using Textures;
     using Interfaces;
 
-    public class Window
+    public abstract class Window
     {
         private const int textureSide = 30;
 
@@ -28,7 +28,7 @@
             this.CurrentHeight = textureSide * 3;
         }
 
-        public void Update(GameTime gameTime)
+        public virtual void Update(GameTime gameTime)
         {
             if(this.CurrentWidth < this.Width)
             {               
@@ -51,7 +51,7 @@
             }
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public virtual void Draw(SpriteBatch spriteBatch)
         {
             DrawCorners(spriteBatch);
             DrawSides(spriteBatch);

@@ -74,6 +74,8 @@
     <Compile Include="Textures\TextureLoader.cs" />
     <Compile Include="UI Elements\Button.cs" />
     <Compile Include="UI Elements\Text.cs" />
+    <Compile Include="UI Elements\Windows\Message\MessagePages.cs" />
+    <Compile Include="UI Elements\Windows\Message\WindowMessage.cs" />
     <Compile Include="UI Elements\Windows\Window.cs" />
     <Compile Include="UI Elements\Windows\WindowHandler.cs" />
     <Compile Include="User\User.cs" />
@@ -113,6 +115,7 @@
     </None>
     <None Include="app.manifest" />
     <None Include="Content\Fonts\Arial.spritefont" />
+    <None Include="Content\Fonts\PokemonFont.spritefont" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
