@@ -43,6 +43,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Core\Collision.cs" />
+    <Compile Include="Core\Engines\LogInEngine.cs" />
     <Compile Include="Core\Engines\SessionEngine.cs" />
     <Compile Include="Core\Engines\StartUpEngine.cs" />
     <Compile Include="Core\Engines\WorldEngine.cs" />
@@ -73,6 +74,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Textures\TextureLoader.cs" />
     <Compile Include="UI Elements\Button.cs" />
+    <Compile Include="UI Elements\InputForms\InputForm.cs" />
+    <Compile Include="UI Elements\InputForms\InputFormManager.cs" />
     <Compile Include="UI Elements\Text.cs" />
     <Compile Include="UI Elements\Windows\Message\MessagePages.cs" />
     <Compile Include="UI Elements\Windows\Message\WindowMessage.cs" />

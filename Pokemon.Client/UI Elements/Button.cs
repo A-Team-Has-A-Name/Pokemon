@@ -95,7 +95,7 @@ namespace Pokemon.Client.UI_Elements
                 Text.Color = HoverTextColour;
             }
         }
-
+        //Obsolete
         private void FireEvents ( )
         {
             if ( currentButtonState != previousButtonState )
@@ -130,7 +130,7 @@ namespace Pokemon.Client.UI_Elements
                 spriteBatch.Draw (this.SpriteSheet, this.Position, new Rectangle (0, 0, 306, 111), DefaultSpriteColour);
             }
             Text.Position = this.Position +  new Vector2(120f,40f);
-            Console.WriteLine(Text.Position);
+            
             Text.Draw (spriteBatch);
         }
 
