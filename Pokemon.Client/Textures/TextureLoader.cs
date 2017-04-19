@@ -13,8 +13,11 @@ namespace Pokemon.Client.Textures
         public static Texture2D TextBoxSheet { get; private set; }
         public static Texture2D WorldBackground { get; private set; }
         public static Texture2D MenuBackgorund { get; private set; }
-        
 
+        public static Texture2D ChatWindowBackground { get; private set; }
+
+        //For debugging -  drawing the bounding boxes
+        public static Texture2D TheOnePixel { get; private set; }
 
         public static int ButtonTextureHeight = 111;
         public static int ButtonTextureWidth = 306;
@@ -35,6 +38,8 @@ namespace Pokemon.Client.Textures
             PokemonSheet = content.Load<Texture2D>("Sprites/Pokemon_100x100");
             ButtonSheet = content.Load<Texture2D>("Sprites/Button");
             WorldBackground = content.Load<Texture2D>("Sprites/WorldBackground_1180x860");
+            ChatWindowBackground = content.Load<Texture2D>("Windows/ChatWindow_30x30");
+            TheOnePixel = content.Load<Texture2D>("Sprites/TheOnePixel");
         }
     }
 }

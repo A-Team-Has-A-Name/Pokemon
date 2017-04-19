@@ -7,6 +7,11 @@
     using Models;
     using NonPlayableCharacters;
     using System.Collections.Generic;
+    using UI_Elements.Windows;
+    using Core;
+    using System;
+    using Core.Engines;
+    using UI_Elements.Windows.Message;
 
     public class Trainer : Unit
     {
@@ -18,6 +23,7 @@
         private const int TrainerIdleFrameCount = 1;
         private const int TrainerWalkingFrameCount = 2;
         private const int TrainerAnimationDelay = 100;
+        private WindowHandler windowHandler;
 
         public string Name { get; set; }
         public List<Pokemon> CaughtPokemon { get; set; }
@@ -28,11 +34,7 @@
             this.Name = model.Name;
 
             this.Position = new Vector2(100, 100);
-            this.BoundingBox = new Rectangle(
-                (int)this.X,
-                (int)this.Y,
-                Width,
-                Height);
+            this.BoundingBox = new Rectangle((int)this.X, (int)this.Y, Width - 40, Height - 10);
 
             this.SpriteSheet = TextureLoader.TrainerSheet;
             this.TextureHeight = spriteHeight;
@@ -44,6 +46,7 @@
             this.Delay = TrainerAnimationDelay;
             this.BasicAnimationFrameCount = TrainerWalkingFrameCount;
             this.IsSurprised = false;
+            this.windowHandler = WorldEngine.WindowHandler;
         }
 
         public bool IsSurprised { get; set; }
@@ -53,11 +56,19 @@
             if (IsSurprised)
             {
                 this.IsMoving = false;
+                int yWindow = 650;
+
+                if(this.Y > SessionEngine.WindowHeight / 2)
+                {
+                    yWindow = 15;
+                } 
+                windowHandler.QueueWindow(new MessageWindow(new Vector2(15, yWindow), 1150, 200, "Encountered Pokemon!"));
             }
 
             this.ManageAnimation(gameTime);
             this.ManageMovement(gameTime);
             this.UpdateBoundingBox();
+
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -68,14 +79,22 @@
                 this.IsMoving = false;
             }
 
-            spriteBatch.Draw(this.SpriteSheet, this.BoundingBox, this.FrameRect, Color.White);
+            spriteBatch.Draw(this.SpriteSheet, new Rectangle((int)this.X, (int)this.Y, this.TextureWidth, this.TextureHeight), this.FrameRect, Color.White);
+            ///Draw bounding box for debugging
+            //this.DrawBB(spriteBatch);
+        }
+
+        private void DrawBB(SpriteBatch spriteBatch)
+        {
+         
+            spriteBatch.Draw(TextureLoader.TheOnePixel,this.BoundingBox, Color.AliceBlue);
         }
 
         //Collision
         protected override void UpdateBoundingBox()
         {
-            this.BoundingBoxX = (int)this.X;
-            this.BoundingBoxY = (int)this.Y;
+            this.BoundingBoxX = (int)this.X + 21;
+            this.BoundingBoxY = (int)this.Y + 20;
         }
 
         //Animation

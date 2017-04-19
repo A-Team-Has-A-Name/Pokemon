@@ -10,6 +10,7 @@
     using Microsoft.Xna.Framework.Input;
     using Screens;
     using Textures;
+    using UI_Elements.Windows;
 
     public class Game1 : Game
     {
@@ -17,7 +18,6 @@
         SpriteBatch spriteBatch;
         Trainer trainer;
         GameScreenManager screenManager;
-        
 
         public Game1()
         {
@@ -34,6 +34,7 @@
         protected override void Initialize()
         {            
             base.Initialize();
+            SessionEngine.Load(this.Content);
             SessionEngine.InitializeTrainer();
             trainer = SessionEngine.Trainer;
             screenManager.ChangeScreen(new StartUpScreen(screenManager));

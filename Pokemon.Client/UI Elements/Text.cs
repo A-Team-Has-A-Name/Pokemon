@@ -1,16 +1,8 @@
-﻿
-
-using Microsoft.Xna.Framework;
-
-namespace Pokemon.Client.UI_Elements
+﻿namespace Pokemon.Client.UI_Elements
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
     using Microsoft.Xna.Framework.Graphics;
     using Interfaces;
+    using Microsoft.Xna.Framework;
 
     public class Text : IUpdatable
     {
@@ -31,7 +23,7 @@ namespace Pokemon.Client.UI_Elements
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.DrawString(SpriteFont, Message,Position,Color);
+            spriteBatch.DrawString(SpriteFont, Message, Position,Color);
         }
     }
 }

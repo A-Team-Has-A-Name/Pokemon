@@ -12,8 +12,6 @@
     {
         private const int pokemonSpriteHeight = 100;
         private const int pokemonSpriteWidth = 100;
-        private const int height = 130;
-        private const int width = 130;
         private static Random random = new Random();
         private string nickname;
         public Pokemon(PokemonModel model)
@@ -32,9 +30,10 @@
             this.Position = this.GenerateRandomVector();   
             var spriteX = model.PokedexEntry.SpriteX;
             var spriteY = model.PokedexEntry.SpriteY;
-            this.FrameRect = new Rectangle(spriteX, spriteY, pokemonSpriteWidth, pokemonSpriteHeight );
-            this.BoundingBox = new Rectangle((int)this.X, (int)this.Y, width, height);
-            if(model.TrainerId != null)
+            this.FrameRect = new Rectangle(spriteX, spriteY, this.TextureWidth, this.TextureHeight );
+            this.BoundingBox = new Rectangle((int)this.X + 30, (int)this.Y + 30, this.TextureWidth - 50, this.TextureHeight - 50);
+
+            if (model.TrainerId != null)
             {
                 this.IsEncountered = true;
                 this.IsHidden = false;
@@ -84,9 +83,17 @@
         {                       
             if (!IsHidden)
             {
-                spriteBatch.Draw(this.SpriteSheet,this.BoundingBox, this.FrameRect, Color.White);
+                spriteBatch.Draw(this.SpriteSheet, new Rectangle((int)this.X, (int)this.Y, this.TextureWidth, this.TextureHeight), this.FrameRect, Color.White);
+                //Draw bounding box for debugging
+                //this.DrawBB(spriteBatch);
             }           
         }
+
+        private void DrawBB(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(TextureLoader.TheOnePixel, this.BoundingBox, Color.Red);
+        }
+
         public Vector2 GenerateRandomVector()
         {
             int xLimit = SessionEngine.WindowWidth - this.TextureWidth + 1;
