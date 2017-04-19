@@ -39,7 +39,7 @@
             this.SpriteSheet = TextureLoader.TrainerSheet;
             this.TextureHeight = spriteHeight;
             this.TextureWidth = spriteWidth;
-          
+
             this.DefaultMovementSpeed = TrainerDefaultMovementSpeed;
             this.MovementSpeed = TrainerDefaultMovementSpeed;
 
@@ -49,9 +49,9 @@
             this.windowHandler = WorldEngine.WindowManager;
 
             this.CaughtPokemon = new List<Pokemon>();
-
              AddPokemon();
-        }
+
+            }
 
         public int Id { get; set; }
         public string Name { get; set; }

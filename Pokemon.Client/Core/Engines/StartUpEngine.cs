@@ -29,6 +29,7 @@ namespace Pokemon.Client.Core.Engines
 
         public static void GenerateButtons(ContentManager contentManager)
         {
+            buttons = new List<Button>();
             Text LogInText = new Text
             {
                 Color = Color.Black,
@@ -94,26 +95,7 @@ namespace Pokemon.Client.Core.Engines
             buttons.Add (ExitButton);
 
 
-            //Play
-
-            Text PlayText = new Text
-            {
-                Color = Color.Black,
-                Message = "Play",
-                SpriteFont = contentManager.Load<SpriteFont> ("Fonts/Arial_20")
-            };
-
-            Button PlayButton = new Button
-            {
-                SpriteSheet = TextureLoader.ButtonSheet,
-                DefaultSpriteColour = Color.White,
-                HoverSpriteColour = Color.Orange,
-                Text = PlayText,
-                DefaultTextColour = Color.Black,
-                HoverTextColour = Color.White
-            };
-
-            buttons.Add (PlayButton);
+           
 
 
         }

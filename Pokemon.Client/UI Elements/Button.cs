@@ -20,6 +20,8 @@ namespace Pokemon.Client.UI_Elements
     {
         public  Texture2D SpriteSheet { get; set; }
 
+        public Texture2D TrainerSheet { get; set; }
+
         public Vector2 Position { get; set; }
 
         internal Color DefaultSpriteColour;
@@ -95,28 +97,7 @@ namespace Pokemon.Client.UI_Elements
                 Text.Color = HoverTextColour;
             }
         }
-        //Obsolete
-        private void FireEvents ( )
-        {
-            if ( currentButtonState != previousButtonState )
-            {
-                switch ( currentButtonState )
-                {
-                    case ButtonState.Hovered:
-                        if ( onHovered != null )
-                        {
-                            onHovered ( );
-                        }
-                        break;
-                    case ButtonState.Clicked:
-                        if ( onClicked != null )
-                        {
-                            onClicked ( );
-                        }
-                        break;
-                }
-            }
-        }
+      
 
         public void Draw ( SpriteBatch spriteBatch)
         {

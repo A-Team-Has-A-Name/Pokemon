@@ -17,7 +17,7 @@ namespace Pokemon.Client.UI_Elements.InputForms
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
 
-    class InputForm : Interfaces.IDrawable, IUpdatable
+    public class InputForm : Interfaces.IDrawable, IUpdatable
     {
         public Texture2D SpriteSheet { get; set; }
 

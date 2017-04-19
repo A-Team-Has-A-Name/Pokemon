@@ -37,6 +37,7 @@ namespace Pokemon.Client.Screens
         public void Initialize(ContentManager content)
         {
             inputManager = new InputFormManager();
+            inputManager.setFramePosition(5f,2f);
             inputManager.ErrorDuration = 5000;
             inputManager.OnExecution += inputManager.LogInExecution;
             inputManager.ErrorMessage = "Login data is incorrect!";

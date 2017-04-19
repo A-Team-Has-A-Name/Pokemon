@@ -77,7 +77,6 @@ namespace Pokemon.Client.Screens
             //Attach the functions to the buttons
             Buttons.Where(b => b.Text.Message == "Log In").FirstOrDefault().OnClicked += ChangeToLogInScreen;
             Buttons.Where(b => b.Text.Message == "Register").FirstOrDefault().OnClicked += ChangeToRegisterScreen;
-            Buttons.Where(b => b.Text.Message == "Play").FirstOrDefault().OnClicked += ChangeToWorldScreen;
 
             //Initiallize first button to be hovered
             for (int i = 0; i < this.Buttons.Count; i++)

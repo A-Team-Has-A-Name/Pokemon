@@ -33,11 +33,13 @@
             {
                 return SessionEngine.currentTrainer;
             }
+            set { currentTrainer = value; }
         }
 
         public static void InitializeTrainer()
         {
-            SessionEngine.currentTrainer = new Trainer(TrainerStore.GetTrainerById(2));
+           // SessionEngine.currentTrainer = new Trainer(TrainerStore.GetTrainerById(2));
+            var debug = SessionEngine.currentTrainer;
         }
 
         public static void Update(GameTime gameTime)

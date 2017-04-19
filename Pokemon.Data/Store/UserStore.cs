@@ -34,6 +34,15 @@
             }
         }
 
+        public static UserModel GetUserById(int id)
+        {
+            using ( var context = new PokemonContext ( ) )
+            {
+                UserModel UM = context.Users.Where (u => u.Id == id).ToList ( ).FirstOrDefault ( );
+                return UM;
+            }
+        }
+
         public static UserModel RegisterUser(string username, string password, string email)
         {
             using ( var context = new PokemonContext ( ) )
