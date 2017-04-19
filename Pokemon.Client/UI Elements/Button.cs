@@ -20,6 +20,8 @@ namespace Pokemon.Client.UI_Elements
     {
         public  Texture2D SpriteSheet { get; set; }
 
+        public Texture2D TrainerSheet { get; set; }
+
         public Vector2 Position { get; set; }
 
         internal Color DefaultSpriteColour;

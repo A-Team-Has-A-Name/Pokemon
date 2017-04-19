@@ -28,7 +28,7 @@ namespace Pokemon.Client.Core.Engines
 
         public static void GenerateForms ( ContentManager contentManager )
         {
-
+            forms = new List<InputForm>();
 
             //Username FORM
             Text usernameText = new Text
