@@ -38,7 +38,7 @@ namespace Pokemon.Client.Screens
             inputManager.setFramePosition(5f,2f);
             inputManager.ErrorDuration = 5000;
             inputManager.OnExecution += inputManager.RegisterExecution;
-            inputManager.ErrorMessage = "Username already exists";
+            inputManager.ErrorMessage = "Username already exists!";
             inputManager.spriteFont = content.Load<SpriteFont> ("Fonts/PokemonFont_15");
             inputManager.InitializeForms (content, FormType.Register);
         }

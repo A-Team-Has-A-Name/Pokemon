@@ -21,6 +21,10 @@ namespace Pokemon.Client.UI_Elements.InputForms
     {
         public Texture2D SpriteSheet { get; set; }
 
+        public static int MaximumLength = 15;
+
+        public static int MinimumLength = 3;
+
         public Vector2 Position { get; set; }
 
         internal Color DefaultSpriteColour;
@@ -95,6 +99,8 @@ namespace Pokemon.Client.UI_Elements.InputForms
 
         public void HandleInput ( GameTime gameTime )
         {
+            string tempString = TextString;
+
             oldKeyboardState = currentKeyboardState;
             currentKeyboardState = Keyboard.GetState ( );
 
@@ -147,6 +153,12 @@ namespace Pokemon.Client.UI_Elements.InputForms
                     }
                 }
             }
+
+            if (TextString.Length > MaximumLength )
+            {
+                TextString = tempString;
+            }
+
         }
     }
 }
