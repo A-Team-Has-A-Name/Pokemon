@@ -33,7 +33,7 @@ namespace Pokemon.Client.Core.Engines
             {
                 Color = Color.Black,
                 Message = "Username:",
-                SpriteFont = contentManager.Load<SpriteFont> ("Fonts/Arial")
+                SpriteFont = contentManager.Load<SpriteFont> ("Fonts/PokemonFont_25")
             };
             InputForm usernameForm = new InputForm
             {
@@ -42,6 +42,7 @@ namespace Pokemon.Client.Core.Engines
                 HoverSpriteColour = Color.Orange,
                 DescriptionOfField = usernameText,
                 TextString = "",
+                textFont = contentManager.Load<SpriteFont>("Fonts/PokemonFont_20"),
                 isSecured = false
             };
 
@@ -52,7 +53,7 @@ namespace Pokemon.Client.Core.Engines
             {
                 Color = Color.Black,
                 Message = "Password:",
-                SpriteFont = contentManager.Load<SpriteFont> ("Fonts/Arial")
+                SpriteFont = contentManager.Load<SpriteFont> ("Fonts/PokemonFont_25")
             };
             InputForm passwForm = new InputForm
             {
@@ -61,6 +62,7 @@ namespace Pokemon.Client.Core.Engines
                 HoverSpriteColour = Color.Orange,
                 DescriptionOfField = passwordText,
                 TextString = "",
+                textFont = contentManager.Load<SpriteFont> ("Fonts/PokemonFont_20"),
                 isSecured = true
             };
 

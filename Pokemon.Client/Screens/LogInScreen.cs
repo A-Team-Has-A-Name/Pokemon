@@ -34,6 +34,9 @@ namespace Pokemon.Client.Screens
         public void Initialize(ContentManager content)
         {
             inputManager = new InputFormManager();
+            inputManager.ErrorDuration = 5000;
+            inputManager.ErrorMessage = "Login data is incorrect!";
+            inputManager.spriteFont = content.Load<SpriteFont>("Fonts/PokemonFont_15");
             inputManager.InitializeForms(content,FormType.LogIn);
         }
 
@@ -50,7 +53,7 @@ namespace Pokemon.Client.Screens
 
         public void HandleInput(GameTime gameTime)
         {
-            inputManager.HandleInput(gameTime);
+            inputManager.HandleInput(gameTime,screenManager);
         }
 
         public void Dispose()

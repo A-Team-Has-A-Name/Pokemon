@@ -4,6 +4,8 @@ using Microsoft.Xna.Framework.Input;
 using Pokemon.Client.Core.Engines;
 using Pokemon.Client.Screens;
 using Pokemon.Client.Textures;
+using Pokemon.Data;
+using Pokemon.Models;
 
 namespace Pokemon.Client.UI_Elements.InputForms
 {
@@ -27,6 +29,16 @@ namespace Pokemon.Client.UI_Elements.InputForms
         {
             this.forms = new List<InputForm> ( );
         }
+
+        public double ErrorDuration { get; set; }
+
+        public SpriteFont spriteFont { get; set; }
+
+        public bool errorIsDisplayed { get; set; }
+
+        public int ErrorElapsedTime { get; set; }
+
+        public string ErrorMessage { get; set; }
 
         private KeyboardState currentKeyboardState;
 
@@ -76,10 +88,29 @@ namespace Pokemon.Client.UI_Elements.InputForms
 
         }
 
+        public void ErrorMassageLogic(GameTime gameTime)
+        {
+            this.ErrorElapsedTime += gameTime.ElapsedGameTime.Milliseconds;
+
+            if ( ErrorElapsedTime > ErrorDuration )
+            {
+                errorIsDisplayed = false;
+                ErrorElapsedTime = 0;
+            }
+            else if (errorIsDisplayed)
+            {
+                errorIsDisplayed = true;
+
+            }
+        }
+
+
         private List<InputForm> forms { get; set; }
 
         public void Update ( GameTime gameTime )
         {
+            ErrorMassageLogic(gameTime);
+
             foreach (var form in this.forms)
             {
                 form.Update(gameTime);
@@ -106,16 +137,58 @@ namespace Pokemon.Client.UI_Elements.InputForms
                 form.Draw (spriteBatch);
             }
 
+            if (errorIsDisplayed)
+            {
+                int ErrorBoxPositionX = 30;
+                int ErrorBoxPositionY = 30;
+
+                spriteBatch.Draw(TextureLoader.TheOnePixel,new Rectangle(ErrorBoxPositionX,ErrorBoxPositionY,SessionEngine.WindowWidth - 200,40),new Rectangle(0,0,1,1),Color.Red  );
+                Vector2 textPosition = new Vector2(ErrorBoxPositionX,ErrorBoxPositionY) + new Vector2(10,8);
+                spriteBatch.DrawString(spriteFont,ErrorMessage,textPosition,Color.Black);
+            }
+
         }
 
-        public void HandleInput ( GameTime gameTime )
+        public void HandleInput ( GameTime gameTime,GameScreenManager screenManager )
         {
             oldKeyboardState = currentKeyboardState;
             currentKeyboardState = Keyboard.GetState ( );
             
-            if ( currentKeyboardState.IsKeyDown (Keys.Enter) )
+            if ( currentKeyboardState.IsKeyDown (Keys.Enter) && oldKeyboardState.IsKeyUp(Keys.Enter) )
             {
-                //TODO: Send info to DB to check if login is OK
+                bool LogInSuccessful = false;
+
+                string username = forms[0].TextString;
+                string password = forms[1].TextString;
+
+                using (var context = new PokemonContext())
+                {
+                    UserModel UM = context.Users.Where(u => u.Username == username).ToList().FirstOrDefault();
+                    if (UM != null)
+                    {
+                        if (UM.Password == password)
+                        {
+                            LogInSuccessful = true;
+                        }
+                    }
+
+                    if (LogInSuccessful)
+                    {
+                        UM.LastOnlineDate = DateTime.Now;
+
+                        SessionEngine.User = new User.User(UM);
+                        context.SaveChanges();
+
+                        screenManager.ChangeScreen(new ChooseTrainerScreen(screenManager));
+                    }
+                    else
+                    {
+                        errorIsDisplayed = true;
+                    }
+                }
+
+                
+
             }
             else if ( currentKeyboardState.IsKeyDown (Keys.Tab) && oldKeyboardState.IsKeyUp(Keys.Tab) )
             {

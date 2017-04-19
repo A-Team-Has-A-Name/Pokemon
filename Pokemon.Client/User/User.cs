@@ -12,7 +12,7 @@ namespace Pokemon.Client.User
     using System.Threading.Tasks;
 
 
-    class User
+    public class User
     {
         public string Username { get; set; }
 
@@ -21,6 +21,13 @@ namespace Pokemon.Client.User
         public DateTime LastOnlineDate { get; set; }
 
         public List<Trainer> Trainers { get; set; }
+
+        private string Password { get; set; }
+        public User(string username,string password)
+        {
+            this.Username = username;
+            this.Password = password;
+        }
 
         public User(UserModel model)
         {

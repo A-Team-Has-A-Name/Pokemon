@@ -25,7 +25,7 @@ namespace Pokemon.Client.Textures
         public static int TextBoxHeigth = 195;
         public static int MenuBackgorundWidth = SessionEngine.WindowWidth;
         public static int MenuBackgorundHeigth = SessionEngine.WindowHeight;
-        public static double TextBoxScale = 0.5;
+        public static double TextBoxScale = 0.4;
         public static int TextBoxWidthScaled = (int)(798 * TextBoxScale);
         public static int TextBoxHeigthScaled = (int)(195 * TextBoxScale);
 

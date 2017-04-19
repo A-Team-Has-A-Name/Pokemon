@@ -65,6 +65,7 @@
     <Compile Include="Interfaces\IUnit.cs" />
     <Compile Include="Interfaces\IUpdatable.cs" />
     <Compile Include="Interfaces\IWindowQueuer.cs" />
+    <Compile Include="Screens\ChooseTrainerScreen.cs" />
     <Compile Include="Screens\GameScreenManager.cs" />
     <Compile Include="Screens\LogInScreen.cs" />
     <Compile Include="Screens\RegisterScreen.cs" />
@@ -119,6 +120,10 @@
     <None Include="app.manifest" />
     <None Include="Content\Fonts\Arial.spritefont" />
     <None Include="Content\Fonts\PokemonFont.spritefont" />
+    <None Include="Content\Fonts\PokemonFont_10.spritefont" />
+    <None Include="Content\Fonts\PokemonFont_15.spritefont" />
+    <None Include="Content\Fonts\PokemonFont_20.spritefont" />
+    <None Include="Content\Fonts\PokemonFont_25.spritefont" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

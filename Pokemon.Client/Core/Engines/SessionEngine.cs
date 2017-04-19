@@ -16,6 +16,8 @@
         private static Trainer currentTrainer;
         public static SpriteFont PokemonFont;
 
+        public static User.User User { get; set; }
+
         public static void Load(ContentManager content)
         {
             PokemonFont = content.Load<SpriteFont>("Fonts/PokemonFont");

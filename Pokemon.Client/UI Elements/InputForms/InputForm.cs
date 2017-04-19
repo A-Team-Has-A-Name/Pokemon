@@ -1,5 +1,6 @@
 ﻿
 using System.Windows.Forms;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
 using Pokemon.Client.Core.Engines;
 using Pokemon.Client.Interfaces;
@@ -32,6 +33,8 @@ namespace Pokemon.Client.UI_Elements.InputForms
 
         public int TextureHeight { get; set; }
 
+        public SpriteFont textFont { get; set; }
+
         internal Text DescriptionOfField { get; set; }
 
         internal bool isSecured { get; set; }
@@ -47,26 +50,43 @@ namespace Pokemon.Client.UI_Elements.InputForms
             this.TextString = string.Empty;
         }
 
-        public void Draw ( SpriteBatch spriteBatch )
+        public void Draw(SpriteBatch spriteBatch)
         {
-            double scaleForm = TextureLoader.TextBoxScale;
-            Rectangle targetRectangle = new Rectangle (( int ) this.Position.X, ( int ) this.Position.Y,TextureLoader.TextBoxWidth, TextureLoader.TextBoxHeigth);
-            targetRectangle.Width = (int)(targetRectangle.Width*scaleForm);
-            targetRectangle.Height = (int)(targetRectangle.Height*scaleForm);
 
-            if ( isHovered )
+            double scaleForm = TextureLoader.TextBoxScale;
+            Rectangle targetRectangle = new Rectangle((int) this.Position.X, (int) this.Position.Y,
+                TextureLoader.TextBoxWidth, TextureLoader.TextBoxHeigth);
+            targetRectangle.Width = (int) (targetRectangle.Width*scaleForm);
+            targetRectangle.Height = (int) (targetRectangle.Height*scaleForm);
+
+            if (isHovered)
             {
-                spriteBatch.Draw (this.SpriteSheet, targetRectangle, new Rectangle (0, 0, TextureLoader.TextBoxWidth, TextureLoader.TextBoxHeigth), HoverSpriteColour);
+                spriteBatch.Draw(this.SpriteSheet, targetRectangle,
+                    new Rectangle(0, 0, TextureLoader.TextBoxWidth, TextureLoader.TextBoxHeigth), HoverSpriteColour);
             }
             else
             {
-                spriteBatch.Draw (this.SpriteSheet, targetRectangle, new Rectangle (0, 0, TextureLoader.TextBoxWidth, TextureLoader.TextBoxHeigth), DefaultSpriteColour);
+                spriteBatch.Draw(this.SpriteSheet, targetRectangle,
+                    new Rectangle(0, 0, TextureLoader.TextBoxWidth, TextureLoader.TextBoxHeigth), DefaultSpriteColour);
             }
-            DescriptionOfField.Position = this.Position + new Vector2 (0, -30f);
-            DescriptionOfField.Draw (spriteBatch);
+
             
-            Vector2 formTextPosition = new Vector2 (20, 40) + this.Position;
-            spriteBatch.DrawString (DescriptionOfField.SpriteFont, TextString, formTextPosition, Color.Black);
+
+
+            DescriptionOfField.Position = this.Position + new Vector2(0, -40f);
+            DescriptionOfField.Draw(spriteBatch);
+
+            string textToShow = TextString;
+            if (isSecured)
+            {
+                textToShow = new string('*', TextString.Length);
+            }
+
+            
+
+            Vector2 formTextPosition = new Vector2(20, 25) + this.Position;
+            spriteBatch.DrawString(this.textFont, textToShow, formTextPosition, Color.Black);
+            //scaling spriteBatch.DrawString(DescriptionOfField.SpriteFont, textToShow, formTextPosition, Color.Black, 0f,Vector2.One, new Vector2(5, 5), SpriteEffects.None, 0f);
         }
 
         public void Update ( GameTime gameTime )
