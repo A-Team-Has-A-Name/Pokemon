@@ -68,6 +68,7 @@ namespace Pokemon.Client.UI_Elements.InputForms
             {
                 LogInSuccessful = true;
             }
+           
 
             if ( LogInSuccessful )
             {
@@ -77,6 +78,7 @@ namespace Pokemon.Client.UI_Elements.InputForms
             }
             else
             {
+                ErrorMessage = "Login data is incorrect!";
                 errorIsDisplayed = true;
             }
         }
@@ -104,32 +106,42 @@ namespace Pokemon.Client.UI_Elements.InputForms
             }
             else
             {
+                ErrorMessage = "Username already exists!";
                 errorIsDisplayed = true;
             }
         }
 
         public bool trainedWasCreated { get; set; }
 
+
         public void CreateTrainer ( GameScreenManager screenManager )
         {
-            bool CreationSuccessful = false;
+            trainedWasCreated = false;
 
             string name = this.forms[0].TextString;
 
-            if (SessionEngine.User.Trainers.Select(tr => tr.Name).Contains(name))
+            if ( name.Length < 3 )
             {
+                ErrorMessage = "Name is too short!";
+                errorIsDisplayed = true;
+                return;
+            }
+
+            if ( SessionEngine.User.Trainers.Select (tr => tr.Name).Contains (name) )
+            {
+                ErrorMessage = "You already have a trainer with this name!";
+                errorIsDisplayed = true;
                 return;
             }
 
             int id = SessionEngine.User.Id;
 
-            TrainerStore.RegisterTrainer(name, id);
-
-            CreationSuccessful = true;
-
-            SessionEngine.User = new User.User(UserStore.GetUserById(SessionEngine.User.Id));
+            TrainerStore.RegisterTrainer (name, id);
 
             trainedWasCreated = true;
+
+            SessionEngine.User = new User.User (UserStore.GetUserById (SessionEngine.User.Id));
+
 
         }
 
@@ -141,7 +153,7 @@ namespace Pokemon.Client.UI_Elements.InputForms
 
         public void InitializeForms ( ContentManager contentManager, FormType type )
         {
-            forms = new List<InputForm>();
+            forms = new List<InputForm> ( );
             trainedWasCreated = false;
 
             oldKeyboardState = currentKeyboardState = Keyboard.GetState ( );
@@ -165,7 +177,7 @@ namespace Pokemon.Client.UI_Elements.InputForms
             }
 
 
-           
+
             for ( int i = 0; i < forms.Count; i++ )
             {
                 if ( currentlyHoveredForm == i )
@@ -178,10 +190,10 @@ namespace Pokemon.Client.UI_Elements.InputForms
 
         }
 
-        public void setFramePosition(float X,float Y)
+        public void setFramePosition ( float X, float Y )
         {
             float baseInputFormFrameXPosition = ( SessionEngine.WindowWidth - TextureLoader.TextBoxWidthScaled ) / X;
-            float baseInputFormFrameYPosition = ( SessionEngine.WindowHeight - TextureLoader.TextBoxHeigthScaled * ( this.forms.Count + 1) ) / (int)Y;
+            float baseInputFormFrameYPosition = ( SessionEngine.WindowHeight - TextureLoader.TextBoxHeigthScaled * ( this.forms.Count + 1 ) ) / ( int ) Y;
             baseInputFormFramePosition = new Vector2 (baseInputFormFrameXPosition, baseInputFormFrameYPosition);
         }
 
@@ -264,6 +276,15 @@ namespace Pokemon.Client.UI_Elements.InputForms
 
                 if ( currentKeyboardState.IsKeyDown (Keys.Enter) && oldKeyboardState.IsKeyUp (Keys.Enter) )
                 {
+                    foreach (var inputForm in forms)
+                    {
+                        if (inputForm.TextString.Length < 3)
+                        {
+                            errorIsDisplayed = true;
+                            ErrorMessage = "Input is too short!";
+                            return;
+                        }
+                    }
                     onExecution (screenManager);
                 }
                 else if ( currentKeyboardState.IsKeyDown (Keys.Tab) && oldKeyboardState.IsKeyUp (Keys.Tab) )
@@ -279,21 +300,18 @@ namespace Pokemon.Client.UI_Elements.InputForms
                         currentlyHoveredForm = 0;
                     }
                 }
-                else if ( currentKeyboardState.IsKeyDown (Keys.Escape) )
-                {
-                    //TODO: Go back to menu screen. PopScreen ?
-                }
-
-                for ( int i = 0; i < forms.Count; i++ )
-                {
-                    if ( currentlyHoveredForm == i )
-                    {
-                        forms[i].HandleInput (gameTime);
-                    }
-                }
             }
 
+            for ( int i = 0; i < forms.Count; i++ )
+            {
+                if ( currentlyHoveredForm == i )
+                {
+                    forms[i].HandleInput (gameTime);
+                }
+            }
         }
 
     }
+
 }
+
