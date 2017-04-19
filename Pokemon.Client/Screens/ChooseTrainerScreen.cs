@@ -35,6 +35,9 @@ namespace Pokemon.Client.Screens
 
         private readonly GameScreenManager screenManager;
 
+        public Window window;
+        public WindowManager windowManager;
+
         private int CurrentlyHoveredTrainerPackage { get; set; }
 
         private bool exitGame;

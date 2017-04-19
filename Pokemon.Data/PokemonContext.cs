@@ -15,7 +15,6 @@ namespace Pokemon.Data
             //Database.SetInitializer(new DropCreateDatabaseAlways<PokemonContext>());
         }
 
-
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<TrainerTeamMember>()

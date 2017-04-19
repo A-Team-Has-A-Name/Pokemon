@@ -10,12 +10,12 @@
     using Microsoft.Xna.Framework.Graphics;
     using Core.Engines;
 
-    public class WindowHandler : IWindowQueuer
+    public class WindowManager : IWindowQueuer
     {
         private readonly Queue<Window> windows;
         private Window currentWindow;
 
-        public WindowHandler()
+        public WindowManager()
         {
             windows = new Queue<Window>();
         }
@@ -53,10 +53,6 @@
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            if (SessionEngine.Trainer.IsSurprised)
-            {
-                var i = 0;
-            }
             currentWindow?.Draw(spriteBatch);
         }
     }

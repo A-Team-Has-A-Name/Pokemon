@@ -6,6 +6,16 @@
 
     public class Text : IUpdatable
     {
+        public Text() { }
+
+        public Text(string message, SpriteFont font, Vector2 position, Color color)
+        {
+            this.Message = message;
+            this.SpriteFont = font;
+            this.Position = position;
+            this.Color = color;
+        }
+        
         public string Message { get; set; }
 
         public SpriteFont SpriteFont { get; set; }
@@ -16,7 +26,7 @@
 
         public bool IsHovered { get; set; }
 
-        public void Update(GameTime gameTime)
+        public virtual void Update(GameTime gameTime)
         {
             
         }

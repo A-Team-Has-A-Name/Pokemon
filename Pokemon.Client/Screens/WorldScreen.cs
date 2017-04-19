@@ -13,13 +13,16 @@
     using UI_Elements.Windows;
     using UI_Elements.Windows.Message;
     using GameObjects.Units.NonPlayableCharacters;
+    using UI_Elements.Notifications;
+    using UI_Elements;
 
     public class WorldScreen : IGameScreen
     {
         private bool exitGame;
 
         private readonly GameScreenManager screenManager;
-        public WindowHandler windowHandler;
+        public WindowManager windowManager;
+        public NotificationManager notificationManager;
         public bool IsPaused { get; private set; }
 
         public WorldScreen(GameScreenManager screenManager)
@@ -32,7 +35,8 @@
             WorldEngine.PopulateWildPokemon();
             WorldEngine.InitializeDrawableObjects();
             WorldEngine.InitializeUpdatableObjects();
-            windowHandler = WorldEngine.WindowHandler;
+            windowManager = WorldEngine.WindowManager;
+            notificationManager = WorldEngine.NotificationManager;
         }
 
         public void Pause()
@@ -47,25 +51,45 @@
 
         public void Update(GameTime gameTime)
         {
-
-            foreach (var p in WorldEngine.WildPokemon)
+            for (int i = 0; i < WorldEngine.WildPokemon.Count; i++)
             {
-
-                //TODO: fix collision bug - too far away but returns true
-                if (Collision.CheckForCollisionBetweenCollidables(SessionEngine.Trainer, p))
+                var currentPokemon = WorldEngine.WildPokemon[i];
+                if (Collision.CheckForCollisionBetweenCollidables(SessionEngine.Trainer, currentPokemon))
                 {
-                    p.IsEncountered = true;
+                    currentPokemon.IsEncountered = true;
                     SessionEngine.Trainer.IsSurprised = true;
-                    EncounteredPokemonMessageWindow((int)SessionEngine.Trainer.Y, p.Name);
+                    bool pokemonIsCaught = Pokemon.IsCaught();
+                    EncounteredPokemonMessageWindow((int)SessionEngine.Trainer.Y, currentPokemon.Name, pokemonIsCaught);
+
+                    if (pokemonIsCaught)
+                    {
+                        SessionEngine.Trainer.CatchPokemon(currentPokemon);
+                        //TODO: Change font Size
+                        //var notification = new Notification($"Added {currentPokemon.Name} to Pokemon Storage.",
+                                                          //  SessionEngine.PokemonFont,
+                                                          //  Color.White);
+
+                        //notificationManager.QueueNotification(notification);
+                    }
+
+                    WorldEngine.WildPokemon.Remove(currentPokemon);
+                    WorldEngine.UpdatableObjects.Remove(currentPokemon);
+                    WorldEngine.DrawableObjects.Remove(currentPokemon);
+                    //notificationManager.QueueNotification(new Notification($"Added {currentPokemon.Name} to Pokemon Storage.",
+                                                        //    SessionEngine.PokemonFont,
+                                                        //    Color.White));
                 }
             }
+
+
 
             foreach (IUpdatable u in WorldEngine.UpdatableObjects)
             {
                 u.Update(gameTime);
             }
 
-            windowHandler.Update(gameTime);
+            windowManager.Update(gameTime);
+            notificationManager.Update(gameTime);
         }
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -77,9 +101,8 @@
                 d.Draw(spriteBatch);                
             }
 
-            //Debug
-            windowHandler?.Draw(spriteBatch);
-
+            windowManager?.Draw(spriteBatch);
+            notificationManager?.Draw(spriteBatch);
         }
 
         public void HandleInput(GameTime gameTime)
@@ -95,17 +118,23 @@
             {
                 screenManager.PopScreen();
             }
+
+            if (keyboard.IsKeyDown(Keys.S))
+            {
+                SessionEngine.SaveGame();
+                notificationManager.QueueNotification(new Notification("Saved.", SessionEngine.PokemonFont, Color.White));
+            }           
         }
 
         //Windows
-        public void EncounteredPokemonMessageWindow(int trainerY, string pokemonName)
+        public void EncounteredPokemonMessageWindow(int trainerY, string pokemonName, bool isCaught)
         {
             int y = getWindowY(trainerY);
             var messageWindow = new MessageWindow(new Vector2(15, y), 1150, 200);
             messageWindow.AddPage($"Encountered a wild {pokemonName}!", false);
             messageWindow.AddPage("Attempting to catch ", true);
 
-            if (Pokemon.IsCaught())
+            if (isCaught)
             {
                 messageWindow.AddPage($"Successfully caught {pokemonName}.", false);
             }
@@ -114,7 +143,7 @@
                 messageWindow.AddPage("The pokemon ran away.", false);
             }
 
-            windowHandler.QueueWindow(messageWindow);           
+            windowManager.QueueWindow(messageWindow);           
         }
 
         private int getWindowY(int trainerY)

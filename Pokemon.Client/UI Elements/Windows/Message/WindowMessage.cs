@@ -86,12 +86,23 @@
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            if(this.CurrentWidth == this.Width)
+            if (this.IsDone)
             {
-                if (IsDone)
+                return;
+            }
+            if(pages[pages.Count - 1].IsDone)
+            {
+                this.counter += gameTime.ElapsedGameTime.TotalMilliseconds;
+                if (this.counter > 500)
                 {
-                    return;
+                    this.counter = 0.0;
+                    //this.IsDone = true;                
                 }
+            }
+
+            if (this.CurrentWidth == this.Width)
+            {
+
                 if (this.pages[this.pageIndex].IsDone)
                 {
                     if (this.pageIndex < this.pages.Count - 1)
@@ -110,7 +121,7 @@
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            if (IsDone)
+            if (pages[pages.Count - 1].IsDone)
             {
                 return;
             }

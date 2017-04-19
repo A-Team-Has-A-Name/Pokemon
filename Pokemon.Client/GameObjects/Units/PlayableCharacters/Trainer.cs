@@ -12,6 +12,7 @@
     using System;
     using Core.Engines;
     using UI_Elements.Windows.Message;
+    using System.Linq;
 
     public class Trainer : Unit
     {
@@ -23,16 +24,14 @@
         private const int TrainerIdleFrameCount = 1;
         private const int TrainerWalkingFrameCount = 2;
         private const int TrainerAnimationDelay = 100;
-        private WindowHandler windowHandler;
-
-        public string Name { get; set; }
-        public List<Pokemon> CaughtPokemon { get; set; }
-        public Pokemon[] Team { get; set; }
+        private WindowManager windowHandler;
+        private TrainerModel model;
 
         public Trainer(TrainerModel model)
         {
+            this.model = model;
+            this.Id = model.Id;
             this.Name = model.Name;
-
             this.Position = new Vector2(100, 100);
             this.BoundingBox = new Rectangle((int)this.X, (int)this.Y, Width - 40, Height - 10);
 
@@ -46,10 +45,21 @@
             this.Delay = TrainerAnimationDelay;
             this.BasicAnimationFrameCount = TrainerWalkingFrameCount;
             this.IsSurprised = false;
-            this.windowHandler = WorldEngine.WindowHandler;
+            this.windowHandler = WorldEngine.WindowManager;
+
+            this.CaughtPokemon = new List<Pokemon>();
+
+             AddPokemon(model.CaughtPokemon);
         }
 
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public int MyProperty { get; set; }
+        public List<Pokemon> CaughtPokemon { get; set; }
+        public Pokemon[] Team { get; set; }
+
         public bool IsSurprised { get; set; }
+
         public override void Update(GameTime gameTime)
         {
             InputHandler.HandleInput(gameTime, this);
@@ -147,6 +157,7 @@
             this.FrameRect = new Rectangle(0, y, this.TextureWidth, this.TextureHeight);
         }
 
+        //Action
         public void GetSurprised(SpriteBatch spriteBatch)
         {
             int x = 0;
@@ -159,6 +170,52 @@
 
             var frameRect = new Rectangle(x, y, width, height);
             spriteBatch.Draw(this.SpriteSheet, new Vector2(xPos, yPos), frameRect, Color.White);
+        }
+
+        //Other
+        public TrainerModel GetCurrentModelState()
+        {
+            UpdateModel();
+            return this.model;
+        }
+
+        private void UpdateModel()
+        {
+            this.model.Name = this.Name;
+            if(this.model.CaughtPokemon.Count < this.CaughtPokemon.Count)
+            {
+                foreach (var poke in this.CaughtPokemon)
+                {
+                    if(!this.model.CaughtPokemon.Where(p => p.Id == poke.Id).Any())
+                    {
+                        this.model.CaughtPokemon.Add(poke.GetCurrentModelState());
+                    }
+                }
+
+            }
+        }
+
+        public void CatchPokemon(Pokemon pokemon)
+        {
+            pokemon.TrainerId = this.Id;
+            this.CaughtPokemon.Add(pokemon);
+        }
+        public void AddPokemon(ICollection<PokemonModel> pokemon)
+        {
+            foreach (var p in pokemon)
+            {
+                this.CaughtPokemon.Add(new Pokemon(p));
+            }
+        }
+
+        public List<PokemonModel> GetCaughtPokemonModels()
+        {
+            var result = new List<PokemonModel>();
+            foreach (var p in this.CaughtPokemon)
+            {
+                result.Add(p.GetCurrentModelState());
+            }
+            return result;
         }
 
     }
