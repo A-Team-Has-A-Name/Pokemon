@@ -2,17 +2,12 @@
 
 namespace Pokemon.Client
 {
-    using Core;
     using Core.Engines;
-    using Data;
     using GameObjects.Units.PlayableCharacters;
-    using Interfaces;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
-    using Microsoft.Xna.Framework.Input;
     using Screens;
     using Textures;
-    using UI_Elements.Windows;
 
     public class Game1 : Game
     {

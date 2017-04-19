@@ -10,6 +10,8 @@
     using Microsoft.Xna.Framework.Graphics;
     using Core.Engines;
     using Message;
+    using Core;
+    using Microsoft.Xna.Framework.Input;
 
     public class WindowManager : IWindowQueuer
     {
@@ -57,6 +59,35 @@
                 ShowNextWindow();
             }
            
+        }
+        public void FinishedMessageWindow(int id, MessageWindow message)
+        {
+            switch (id)
+            {
+                case 1:
+                    SessionEngine.Trainer.StopSurprise();
+                    WorldEngine.RemovePendingPokemon();
+                    break;
+                case 2:
+                    WaitForUserInput(message);
+                    break;
+            }
+            
+        }
+
+        private void WaitForUserInput(MessageWindow message)
+        {
+            var keyboard = Keyboard.GetState();
+
+            if (keyboard.IsKeyDown(Keys.M))
+            {
+                message = null;
+            }
+            else if(message != null)
+            {
+                message.IsDone = false;
+                WorldEngine.WindowManager.QueueWindow(message);
+            }
         }
 
         public void Draw(SpriteBatch spriteBatch)

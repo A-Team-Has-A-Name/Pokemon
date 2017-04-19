@@ -83,5 +83,17 @@
             UpdatableObjects.Remove(PendingPokemonToRemove);
             DrawableObjects.Remove(PendingPokemonToRemove);
         }
+
+        public static void ResetWorld()
+        {
+            WindowManager = new WindowManager();
+            NotificationManager = new NotificationManager();
+            background = TextureLoader.WorldBackground;
+            updatableObjects = new List<IUpdatable>();
+            drawableObjects = new List<Interfaces.IDrawable>();
+            wildPokemon = new List<Pokemon>();
+            PendingPokemonToRemove = null;
+            SessionEngine.Trainer.Reset();
+        }
     }
 }

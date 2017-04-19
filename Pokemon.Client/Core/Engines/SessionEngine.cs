@@ -18,12 +18,14 @@
         public const int WindowWidth = 1180;
         private static Trainer currentTrainer;
         public static SpriteFont PokemonFont;
+        public static SpriteFont PokemonFont20;
 
         public static User.User User { get; set; }
 
         public static void Load(ContentManager content)
         {
             PokemonFont = content.Load<SpriteFont>("Fonts/PokemonFont");
+            PokemonFont20 = content.Load<SpriteFont>("Fonts/PokemonFont_20");
 
         }
 
@@ -39,7 +41,7 @@
         public static void InitializeTrainer()
         {
            // SessionEngine.currentTrainer = new Trainer(TrainerStore.GetTrainerById(2));
-            var debug = SessionEngine.currentTrainer;
+            //var debug = SessionEngine.currentTrainer;
         }
 
         public static void Update(GameTime gameTime)

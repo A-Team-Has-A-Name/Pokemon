@@ -95,6 +95,13 @@
             spriteBatch.Draw(TextureLoader.TheOnePixel,this.BoundingBox, Color.AliceBlue);
         }
 
+        public void Reset()
+        {
+            this.StopSurprise();
+            this.X = 100;
+            this.Y = 100;
+        }
+
         //Collision
         protected override void UpdateBoundingBox()
         {

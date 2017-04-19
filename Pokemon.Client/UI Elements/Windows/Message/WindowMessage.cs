@@ -10,7 +10,6 @@
 
     public class MessageWindow : Window
     {
-        private const int MaxNumberRows = 2;
         public string text;
         private Vector2 margin;
         private List<MessagePage> pages;
@@ -19,14 +18,23 @@
         private double counter;
 
         public int Id { get; set; }
-
-        public MessageWindow(Vector2 position, int width, int height, string text) : base(position, width, height)
+        public int MaxNumberRows { get; set; }
+        public SpriteFont Font
         {
+            get { return this.font;  }
+            set { this.font = value; }
+        }
+        public Color Color { get; internal set; }
+
+        public MessageWindow(Vector2 position, int width, int height, string text, int id, int maxRows) : base(position, width, height)
+        {
+            this.Id = id;
             this.text = text;
             pages = new List<MessagePage>();
             pageIndex = 0;
             margin = new Vector2(30);
             font = SessionEngine.PokemonFont;
+            MaxNumberRows = maxRows;
             CreatePages(font);
         }
 
@@ -55,10 +63,10 @@
                 var oldRowLength = rowText.Length;
                 rowText.Append($"{word} ");
 
-                if(font.MeasureString(rowText).X > Width - margin.X)
+                if (font.MeasureString(rowText).X > Width - margin.X)
                 {
                     rowText.Remove(oldRowLength, rowText.Length - oldRowLength);
-                    if(rowIndex == MaxNumberRows - 1)
+                    if (rowIndex == MaxNumberRows - 1)
                     {
                         pages.Add(new MessagePage(rowText.ToString(), Position + margin, font, false));
                         rowText.Clear();
@@ -66,19 +74,20 @@
                     }
                     else
                     {
-                        rowText.Append($"{Environment.NewLine}{Environment.NewLine}");
+                        rowText.Append($"{Environment.NewLine}");
                     }
                 }
                 else
                 {
                     index++;
                 }
-            } 
+            }
 
-            if(rowText.Length > 0)
+            if (rowText.Length > 0)
             {
                 pages.Add(new MessagePage(rowText.ToString(), Position + margin, font, false));
             }
+            
         }
         
         public void AddPage(string text, bool isLoading)
@@ -101,8 +110,7 @@
                 {
                     this.counter = 0.0;
                     this.IsDone = true;
-                    SessionEngine.Trainer.StopSurprise();
-                    WorldEngine.RemovePendingPokemon();
+                    WorldEngine.WindowManager.FinishedMessageWindow(this.Id, this);
                     return;             
                 }
             }

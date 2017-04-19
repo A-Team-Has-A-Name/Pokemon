@@ -32,6 +32,7 @@
 
         public void Initialize(ContentManager content)
         {
+            WorldEngine.ResetWorld();
             WorldEngine.PopulateWildPokemon();
             WorldEngine.InitializeDrawableObjects();
             WorldEngine.InitializeUpdatableObjects();
@@ -61,15 +62,13 @@
                     currentPokemon.IsEncountered = true;
                     SessionEngine.Trainer.IsSurprised = true;
                     bool pokemonIsCaught = Pokemon.IsCaught();
-                    EncounteredPokemonMessageWindow((int)SessionEngine.Trainer.Y, currentPokemon.Name, pokemonIsCaught);
+                    Messages.EncounteredPokemonMessageWindow((int)SessionEngine.Trainer.Y, currentPokemon.Name, pokemonIsCaught);
                     if (pokemonIsCaught)
                     {
                         SessionEngine.Trainer.CatchPokemon(currentPokemon);
                     }
                 }
             }
-
-
 
             foreach (IUpdatable u in WorldEngine.UpdatableObjects)
             {
@@ -89,6 +88,15 @@
                 d.Draw(spriteBatch);                
             }
 
+            //Draw remaining pokemon in world
+            spriteBatch.Draw(TextureLoader.TheOnePixel, new Rectangle(1085, 30, 55, 55), Color.DarkGreen);
+            int x = 1090;
+            if(WorldEngine.WildPokemon.Count < 10)
+            {
+                x = 1100;
+            }
+            spriteBatch.DrawString(SessionEngine.PokemonFont, "" + WorldEngine.WildPokemon.Count, new Vector2(x, 35), Color.White);
+
             windowManager?.Draw(spriteBatch);
             notificationManager?.Draw(spriteBatch);
         }
@@ -99,16 +107,13 @@
 
             if (keyboard.IsKeyDown(Keys.Escape))
             {
-                this.screenManager.PopScreen();
-                exitGame = true;
-            }
-
-            if (keyboard.IsKeyDown(Keys.B))
-            {
                 screenManager.PopScreen();
             }
-
-            if (keyboard.IsKeyDown(Keys.S))
+            else if (keyboard.IsKeyDown(Keys.M))
+            {
+                Messages.DisplayCaughtPokemonMessageWindow();
+            }
+            else if (keyboard.IsKeyDown(Keys.S))
             {
                 SessionEngine.SaveGame();
                 notificationManager.QueueNotification(new Notification("Saved.", SessionEngine.PokemonFont, Color.White));
@@ -116,36 +121,7 @@
         }
 
         //Windows
-        public void EncounteredPokemonMessageWindow(int trainerY, string pokemonName, bool isCaught)
-        {
-            int y = getWindowY(trainerY);
-            var messageWindow = new MessageWindow(new Vector2(15, y), 1150, 200, 1);
-            messageWindow.AddPage($"Encountered a wild {pokemonName}!", false);
-            messageWindow.AddPage("Attempting to catch ", true);
-
-            if (isCaught)
-            {
-                messageWindow.AddPage($"Successfully caught {pokemonName}.", false);
-            }
-            else
-            {
-                messageWindow.AddPage("The pokemon ran away.", false);
-            }
-
-            windowManager.QueueWindow(messageWindow);           
-        }
-
-        private int getWindowY(int trainerY)
-        {
-            int yWindow = 650;
-
-            if (trainerY > SessionEngine.WindowHeight / 2)
-            {
-                yWindow = 15;
-            }
-            return yWindow;
-        }
-
+ 
         public void Dispose()
         {
 

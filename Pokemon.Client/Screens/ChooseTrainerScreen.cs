@@ -1,27 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using Pokemon.Client.Content;
-using Pokemon.Client.Core;
-using Pokemon.Client.Core.Engines;
-using Pokemon.Client.GameObjects.Units.PlayableCharacters;
-using Pokemon.Client.Interfaces;
-using Pokemon.Client.Textures;
-using Pokemon.Client.UI_Elements;
-using Pokemon.Client.UI_Elements.InputForms;
-using Pokemon.Client.UI_Elements.Windows;
-using Pokemon.Models;
-using PokemonDB.Data.Store;
-using ButtonState = Pokemon.Client.UI_Elements.ButtonState;
-
-namespace Pokemon.Client.Screens
+﻿namespace Pokemon.Client.Screens
 {
+    using System.Collections.Generic;
+    using Microsoft.Xna.Framework;
+    using Microsoft.Xna.Framework.Content;
+    using Microsoft.Xna.Framework.Graphics;
+    using Microsoft.Xna.Framework.Input;
+    using Pokemon.Client.Core.Engines;
+    using Pokemon.Client.GameObjects.Units.PlayableCharacters;
+    using Pokemon.Client.Interfaces;
+    using Pokemon.Client.Textures;
+    using Pokemon.Client.UI_Elements;
+    using Pokemon.Client.UI_Elements.InputForms;
+    using Pokemon.Client.UI_Elements.Windows;
+    using Pokemon.Models;
+    using PokemonDB.Data.Store;
+    using ButtonState = Pokemon.Client.UI_Elements.ButtonState;
+
     struct TrainerPackage
     {
         public Trainer trainer { get; set; }
