@@ -25,17 +25,17 @@
             this.TextureHeight = pokemonSpriteHeight;
             this.TextureWidth = pokemonSpriteWidth;
 
-           // this.Name = model.PokedexEntry.Name;           
+            this.Name = model.PokedexEntry.Name;           
             this.Nickname = model.Nickname;
             this.Level = model.Level;
             this.LevelUp(this.Level);
-            //this.Health = model.PokedexEntry.BaseHealth;
-            //this.Attack = model.PokedexEntry.BaseAttack;
+            this.Health = model.PokedexEntry.BaseHealth;
+            this.Attack = model.PokedexEntry.BaseAttack;
 
             this.Position = this.GenerateRandomVector();   
-            //var spriteX = model.PokedexEntry.SpriteX;
-            //var spriteY = model.PokedexEntry.SpriteY;
-            //this.FrameRect = new Rectangle(spriteX, spriteY, this.TextureWidth, this.TextureHeight );
+            var spriteX = model.PokedexEntry.SpriteX;
+            var spriteY = model.PokedexEntry.SpriteY;
+            this.FrameRect = new Rectangle(spriteX, spriteY, this.TextureWidth, this.TextureHeight );
             this.BoundingBox = new Rectangle((int)this.X + 30, (int)this.Y + 30, this.TextureWidth - 50, this.TextureHeight - 50);
 
             if (model.TrainerId != null)
@@ -82,6 +82,7 @@
         public bool IsHidden { get; set; }
         public bool IsEncountered { get; set; }
         public int? TrainerId { get; set; }
+        public bool IsUpdated { get; internal set; }
 
         public void Update(GameTime gameTime)
         {

@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using Pokemon.Data;
-using Pokemon.Models;
-
-namespace PokemonDB.Data.Store
+﻿namespace PokemonDB.Data.Store
 {
+    using System;
+    using System.Data.Entity;
+    using System.Linq;
+    using Pokemon.Data;
+    using Pokemon.Models;
+
     public static class UserStore
     {
         private static UserModel getUserByUsername(string username,PokemonContext context)

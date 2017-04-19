@@ -37,7 +37,7 @@
 
         public static void InitializeTrainer()
         {
-            SessionEngine.currentTrainer = new Trainer(TrainerStore.GetTrainerById(1));
+            SessionEngine.currentTrainer = new Trainer(TrainerStore.GetTrainerById(2));
         }
 
         public static void Update(GameTime gameTime)
@@ -47,7 +47,7 @@
 
         public static void SaveGame()
         {
-            PokemonStore.UpdatePokemon(SessionEngine.Trainer.GetCaughtPokemonModels());
+            PokemonStore.UpdatePokemon(SessionEngine.Trainer.GetCaughtPokemonModelsForUpdate());
             TrainerStore.UpdateTrainer(SessionEngine.Trainer.GetCurrentModelState());
         }
 

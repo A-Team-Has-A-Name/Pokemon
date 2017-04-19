@@ -64,20 +64,11 @@
                     if (pokemonIsCaught)
                     {
                         SessionEngine.Trainer.CatchPokemon(currentPokemon);
-                        //TODO: Change font Size
-                        //var notification = new Notification($"Added {currentPokemon.Name} to Pokemon Storage.",
-                                                          //  SessionEngine.PokemonFont,
-                                                          //  Color.White);
-
-                        //notificationManager.QueueNotification(notification);
                     }
 
                     WorldEngine.WildPokemon.Remove(currentPokemon);
                     WorldEngine.UpdatableObjects.Remove(currentPokemon);
                     WorldEngine.DrawableObjects.Remove(currentPokemon);
-                    //notificationManager.QueueNotification(new Notification($"Added {currentPokemon.Name} to Pokemon Storage.",
-                                                        //    SessionEngine.PokemonFont,
-                                                        //    Color.White));
                 }
             }
 

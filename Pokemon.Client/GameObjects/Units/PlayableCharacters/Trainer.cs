@@ -13,6 +13,7 @@
     using Core.Engines;
     using UI_Elements.Windows.Message;
     using System.Linq;
+    using PokemonDB.Data.Store;
 
     public class Trainer : Unit
     {
@@ -49,7 +50,7 @@
 
             this.CaughtPokemon = new List<Pokemon>();
 
-             AddPokemon(model.CaughtPokemon);
+             AddPokemon();
         }
 
         public int Id { get; set; }
@@ -198,22 +199,27 @@
         public void CatchPokemon(Pokemon pokemon)
         {
             pokemon.TrainerId = this.Id;
+            pokemon.IsUpdated = true;
             this.CaughtPokemon.Add(pokemon);
         }
-        public void AddPokemon(ICollection<PokemonModel> pokemon)
+        public void AddPokemon()
         {
+            var pokemon = PokemonStore.GetTrainerCaughtPokemon(this.Id);
             foreach (var p in pokemon)
             {
                 this.CaughtPokemon.Add(new Pokemon(p));
             }
         }
 
-        public List<PokemonModel> GetCaughtPokemonModels()
+        public List<PokemonModel> GetCaughtPokemonModelsForUpdate()
         {
             var result = new List<PokemonModel>();
             foreach (var p in this.CaughtPokemon)
             {
-                result.Add(p.GetCurrentModelState());
+                if (p.IsUpdated)
+                {
+                    result.Add(p.GetCurrentModelState());
+                }
             }
             return result;
         }
